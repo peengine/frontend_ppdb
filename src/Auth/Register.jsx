@@ -17,7 +17,7 @@ const Register = () => {
 
   useEffect(()=>{
     if(localStorage.getItem('token')){
-      navigate('/')
+      navigate('/dashboard')
     }
   },[]);
   const registerHandler = async (e) =>{
