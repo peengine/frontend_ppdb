@@ -1,13 +1,97 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+
+
+:root{
+    --primary:#3155e7;
+    --primary-dark:#2045d6;
+    --black : #010101;
+    --gray-1 : #788190;
+    --gray-2:#d3d4db;
+    --white : #ffffff;
+    --body : #fefefe;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body{ 
+    font-family:'Signika',sans-serif;
+    background-color:  var(--body);
+}
+
+/* Button */
+
+.btn{
+    border-radius: 12px;
+}
+.btn-primary,.btn-outline-secondary{
+    padding: 12px 20px;
+}
+.btn-primary{
+    background-color: var(--primary);
+}
+.btn-primary:hover{
+    background-color: var(--primary-dark);
+}
+.btn-outline-secondary{
+    border: 1px solid var(--gray-2);
+    color: var(--black);
+}
+.btn-outline-secondary:hover{
+    background-color: var(--gray-2);
+    border: 1px solid var(--gray-2);
+    color: var(--black);
+}
+/* Navbars */
+
+.navbar{
+    padding: 30px 0;
+}
+.navbar-toggler{
+  border: 0px;
+}
+.nav-link{
+    margin-left: 41px;
+    font-size: 16px;
+    color: var(--gray-1);
+}
+.nav-link .active{
+    font-weight: bold;
+    color: var(--primary);
+}
+/* home */
+
+#home{
+  padding:0;
+  margin: 0;
+  height: 100vh;
+}
+#home .text{
+  padding: 20vh 0;
+  height: 100%;
+  justify-content: center;
+}
+#home .text a{
+  border-radius: 0;
+  border: 1px solid var(--primary);
+  background-color: var(--white);
+  color: var(--primary);
+}
+#home .text a:hover{
+  border-radius: 0;
+  color: var(--white);
+  background-color: var(--primary);
+}
+
+#home .image{
+  padding: 20px 0;
+}
+#home .image img{
+  height: 100%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 991px) {
+  #home .text{
+    padding: 15vh 0;
+    height: 100%;
+    justify-content: center;
+  }
 }

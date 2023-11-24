@@ -19,11 +19,10 @@ const Signin = () => {
 
   const signinHandler = async (e) => {
       e.preventDefault();
-
       const fd = new FormData();
       fd.append('email',email)
       fd.append('password',password)
-      await axios.post(BASE_URL+"/auth/login",fd).then((response) => {
+      await axios.post(BASE_URL+"auth/login",fd).then((response) => {
         
         localStorage.setItem('token',response.data.access_token);
         navigate('/')

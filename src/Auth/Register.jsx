@@ -28,7 +28,7 @@ const Register = () => {
     fd.append('email',email)
     fd.append('password',password)
     fd.append('password_confirmation',confirmationPassword)
-    await axios.post(BASE_URL+"/auth/register",fd).then((response) => {
+    await axios.post(BASE_URL+"auth/register",fd).then((response) => {
       navigate('/signin')
     }).catch((error) => {
       setValidation(error.response.data);

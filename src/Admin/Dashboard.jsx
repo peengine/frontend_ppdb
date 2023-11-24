@@ -18,7 +18,7 @@ const Dashboard = () => {
   },[])
   const fetchData = async (e) => {
     axios.defaults.headers.common['Authorization'] = 'Bearer '+token
-    await axios.post(BASE_URL+'/auth/me').then((response)=>{
+    await axios.post(BASE_URL+'auth/me').then((response)=>{
       setUser(response.data)
     }).catch((error) => {
       console.log(error)
@@ -26,7 +26,7 @@ const Dashboard = () => {
   }
 const logoutHandler = async (e) => {
   axios.defaults.headers.common['Authorization'] = 'Bearer '+token
-    await axios.post(BASE_URL+'/auth/logout').then((response)=>{
+    await axios.post(BASE_URL+'auth/logout').then((response)=>{
       localStorage.removeItem('token')
       navigate('/signin')
     }).catch((error) => {
