@@ -35,6 +35,8 @@ const logoutHandler = async (e) => {
 }
 
   return (
+    <>
+    
     <div className="bg-light">
       <div className="container">
         <div className="d-flex align-items-center" style={{height:"100vh"}}>
@@ -54,6 +56,8 @@ const logoutHandler = async (e) => {
         </div>
       </div>
     </div>
+    </>
+    
   )
 }
 
