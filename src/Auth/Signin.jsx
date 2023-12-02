@@ -22,13 +22,24 @@ const Signin = () => {
       const fd = new FormData();
       fd.append('email',email)
       fd.append('password',password)
-      await axios.post(BASE_URL+"auth/login",fd).then((response) => {
-        
-        localStorage.setItem('token',response.data.access_token);
-        navigate('/')
-      }).catch((error) => {
-        setValidation(error.response.data);
-      })
+      try{
+        await axios.post(BASE_URL+"auth/login",fd,{
+          validateStatus:(status) =>{
+            if(status !== 200){
+              setValidation({error:["Validation Failed, Try Again Later"]});
+            }
+            return status == 200;
+          }
+        }).then((response) => {
+          localStorage.setItem('token',response.data.access_token);
+          navigate('/')
+        }).catch((error) => {
+          setValidation(error.response.data);
+        })
+      }catch(err){
+        setValidation({"error" : [`Oops,Server is busy or not Connected, Please Try Again Later!`]});
+      }
+     
   }
 
   return (
@@ -39,6 +50,10 @@ const Signin = () => {
           <div style={{width:"100%"}}>
             <div className="row justify-content-center">
               <div className="col-md-5">
+                <div className="text-center">
+                  <h4> <span className="badge bg-primary p-2">PPDB</span><b> SMK LOREM</b></h4>
+                </div>
+                  
                 <form onSubmit={signinHandler}>
                   <div className="card shadow card-primary card-outline">
                     <div className="card-body p-3">
@@ -71,7 +86,7 @@ const Signin = () => {
                             </small>
                           )}
                         </div>
-                        <button type="submit" className='btn btn-primary form-control'>Sign in</button>
+                        <button type="submit"  className='btn btn-primary form-control'>Sign in</button>
                           <div className="text-center">
                             <small>or</small>
                             <br />

@@ -28,11 +28,16 @@ const Register = () => {
     fd.append('email',email)
     fd.append('password',password)
     fd.append('password_confirmation',confirmationPassword)
-    await axios.post(BASE_URL+"auth/register",fd).then((response) => {
-      navigate('/signin')
-    }).catch((error) => {
-      setValidation(error.response.data);
-    })
+    try{
+      await axios.post(BASE_URL+"auth/register",fd).then((response) => {
+        navigate('/signin')
+      }).catch((error) => {
+        setValidation(error.response.data);
+      })
+    }catch(err){
+      setValidation({"error" : [`Oops,Server is busy or not Connected, Please Try Again Later!`]});   
+    }
+    
   }
 
   return (
@@ -43,6 +48,9 @@ const Register = () => {
           <div style={{width:"100%"}}>
             <div className="row justify-content-center">
               <div className="col-md-5">
+              <div className="text-center">
+                  <h4> <span className="badge bg-primary p-2">PPDB</span><b> SMK LOREM</b></h4>
+                </div>
                 <form onSubmit={registerHandler}>
                   <div className="card shadow card-primary card-outline">
                     <div className="card-body p-3">

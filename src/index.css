@@ -23,6 +23,11 @@ body{
     
 }
 
+/* Background */
+
+.bg-var-primary{
+  background-color: var(--primary);
+}
 
 /* Button */
 
