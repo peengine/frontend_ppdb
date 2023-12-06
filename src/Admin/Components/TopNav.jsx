@@ -3,10 +3,6 @@ import { Container, Navbar,Nav,NavDropdown, Tabs, Tab } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from "react-icons/fa";
 import axios from 'axios';
-import Home from '../pages/Home';
-import Pendaftar from '../pages/Pendaftar';
-import BerkasPendaftar from '../pages/BerkasPendaftar';
-import Pembayaran from '../pages/Pembayaran';
 
 const TopNav = (props) => {
   const navigate = useNavigate();
@@ -36,7 +32,7 @@ const TopNav = (props) => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
                 <NavDropdown title={props.username} >
-                  <NavDropdown.Item href="#"> <FaUserCircle/> Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="/profile"> <FaUserCircle/> Profile</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item onClick={()=> logoutHandler() }>Signout</NavDropdown.Item>
                 </NavDropdown>

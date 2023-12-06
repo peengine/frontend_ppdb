@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import foot_bg from './Images/footer.png'
 import { Link as LinkScroll } from 'react-scroll';
 import { Container, Nav, Navbar } from 'react-bootstrap'
-const Footer = () => {
+const Footer = (props) => {
   const date = new Date();
   const token = localStorage.getItem('token');
 
@@ -13,8 +13,9 @@ const Footer = () => {
       <div className="container">
         <div className="row  py-5 mt-3 ">
           <div className="col-md-4">
-            <h4> <span className="badge bg-primary p-2">PPDB</span> SMK LOREM</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>               
+            <h4> <span className="badge bg-primary p-2">PPDB</span> <b>{props.sekolahName}</b></h4>
+            <p>{props.sekolahSlug}</p>
+            <p>{props.alamatSekolah}</p>
           </div>
           <div className="col-md-4">
               <ul style={{listStyle:'none'}} >

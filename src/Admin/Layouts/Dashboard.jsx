@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
-import TabsNav from './Components/TabsNav';
-import TopNav from './Components/TopNav';
+import TabsNav from '../Components/TabsNav';
+import TopNav from '../Components/TopNav';
 
 const Dashboard = () => {
   const [user,setUser] = useState({});
@@ -21,7 +21,13 @@ const Dashboard = () => {
   const fetchData = async (e) => {
     axios.defaults.headers.common['Authorization'] = 'Bearer '+token
     await axios.post(BASE_URL+'auth/me').then((response)=>{
-      setUser(response.data)
+      if(response.data.name  == null ){
+        localStorage.removeItem('token');
+        navigate('/signin')
+      }else{
+        setUser(response.data)
+      }
+      
     }).catch((error) => {
       console.log(error)
     })

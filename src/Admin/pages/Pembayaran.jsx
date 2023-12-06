@@ -8,7 +8,7 @@ const Pembayaran = () => {
                 <div className="col-md-12">
                     <div className="card card-primary shadow m-3">
                         <div className="card-body">
-                            <h5 className="card-title">Pembayaran</h5>
+                            <h5 className="card-title">Administrasi</h5>
                             <small className='card-subtitle'>Upload Bukti dan Lakukan Pembayaran disini!</small>
                             <hr />
                         </div>

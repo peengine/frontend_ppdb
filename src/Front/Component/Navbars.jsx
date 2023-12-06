@@ -5,9 +5,8 @@ import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Link as LinkScroll } from 'react-scroll';
 
-const Navbars = () => {
+const Navbars = (props) => {
   const token = localStorage.getItem('token');
-
   const[bgnav,setBgnav] = useState("bg-transparent");
 
   const setBackgroundNav = () =>{
@@ -29,7 +28,7 @@ const Navbars = () => {
           <Navbar.Brand href="#home">
             {/* Logo And Brand here */}
             <LinkScroll to='home' smooth={true} duration={500}>
-                <h4> <span className="badge bg-primary p-2">PPDB</span><b> SMK LOREM</b></h4>
+                <h4> <span className="badge bg-primary p-2">PPDB</span><b> {props.sekolahName}</b></h4>
             </LinkScroll>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

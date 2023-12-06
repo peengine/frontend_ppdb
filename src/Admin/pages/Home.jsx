@@ -1,5 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
+import { GoAlertFill } from "react-icons/go";
+import { FaCalendarCheck, FaImages } from "react-icons/fa";
 
 const Home = () => {
   return (
@@ -9,7 +11,7 @@ const Home = () => {
                 <div className="col-md-12">
                     <div className="card card-primary shadow m-3">
                         <div className="card-body">
-                            <h5 className="card-title">Pengumuman</h5>
+                            <h5 className="card-title"> <GoAlertFill/> Pengumuman</h5>
                             <small className='card-subtitle'>Semua Pengumuman Akan Muncul disini !</small>
                             <hr />
                             <div className="alert alert-danger">
@@ -23,7 +25,7 @@ const Home = () => {
                 <div className="col-md-12">
                     <div className="card card-primary shadow m-3">
                         <div className="card-body">
-                            <h5 className="card-title">Biaya Dan Jadwal</h5>
+                            <h5 className="card-title"> <FaCalendarCheck/> Biaya Dan Jadwal</h5>
                             <small className='card-subtitle'>Data Jalur Yang Tersedia dan terbuka akan tersedia disini !</small>
                             <hr />
                             <div className="table-responsive">
@@ -33,7 +35,7 @@ const Home = () => {
                                             <th rowSpan={2}>Jalur</th>
                                             <th colSpan={2}>Tanggal</th>
                                             <th colSpan={2}>Biaya</th>
-                                            <th rowSpan={2}>Aksi</th>
+                                            <th rowSpan={2}>Status</th>
                                         </tr>
                                         <tr>
                                             <th>Dibuka</th>
@@ -49,7 +51,7 @@ const Home = () => {
                                             <td>13 Des 2023</td>
                                             <td>Rp.XXX.XXX,00</td>
                                             <td>Rp.XXX.XXX,00</td>
-                                            <td>Jalur Prestasi</td>
+                                            <td>DiBuka</td>
                                         </tr>
                                     </tbody>
                                 </Table>

@@ -1,6 +1,8 @@
 import React from 'react'
 import vector_jurusan from './Images/jurusan.jpg'
-const Jurusan = () => {
+const Jurusan = (props) => {
+    const URLS = process.env.REACT_APP_BASE_URL
+   const jurusan = props.jurusan.data;
   return (
     <>
     <section id="jurusan">
@@ -17,42 +19,24 @@ const Jurusan = () => {
                 </div>
             </div>
             <div className="row justify-content-center">
-                <div className="col-md-4 mt-3">
-                    <div className="card shadow">
-                        <div className="card-body p-4 text-center">
-                                <img src={vector_jurusan} width={100} height={100} className='img img-circle my-2'/>
-                                <h4><b>Lorem ipsum dolor sit amet</b> </h4>
-                                <hr />
-                                <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4 mt-3">
-                    <div className="card shadow">
-                        <div className="card-body p-4 text-center">
-                                <img src={vector_jurusan} width={100} height={100} className='img img-circle my-2'/>
-                                <h4><b>Lorem ipsum dolor sit amet</b> </h4>
-                                <hr />
-                                <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4 mt-3">
-                    <div className="card shadow">
-                        <div className="card-body p-4 text-center">
-                                <img src={vector_jurusan} width={100} height={100} className='img img-circle my-2'/>
-                                <h4><b>Lorem ipsum dolor sit amet</b> </h4>
-                                <hr />
-                                <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
-                        </div>
-                    </div>
-                </div>
+                {
+                    jurusan && jurusan.map((result)=>{
+                        return(
+                            <div className="col-md-4 mt-3">
+                                <div className="card shadow">
+                                    <div className="card-body p-4 text-center">
+                                            <img src={URLS+result.foto_kompetensi} width={100} height={100} className='img img-circle my-2'/>
+                                            <h4><b>{result.nama_kompetensi}</b> </h4>
+                                            <hr />
+                                            <p>
+                                                {result.desc_kompetensi}
+                                            </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </div>
     </section>

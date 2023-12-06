@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Hero = () => {
+const Hero = (props) => {
   return (
     <>
         <section id='home'>
@@ -10,8 +10,9 @@ const Hero = () => {
                 <div className="row">
                     <div className="col-md-6">
                         <div className="text">
-                            <h3> <b>PPDB SMK LOREM PAKIS</b></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            <h3> <b>PPDB {props.sekolahName}</b></h3>
+                            <p> Untuk calon pendaftar tahun ajaran <b>{props.tahunAjaran}</b> bisa mendaftar 
+                                melalui website ini atau langsung datang ke tempat pendaftaran</p>
                             <Link to={'/dashboard'} type='button' className='btn btn-primary shadow'>Daftar Sekarang</Link>
                         </div>
                     </div>
