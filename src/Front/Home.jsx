@@ -14,18 +14,11 @@ import NotAvailable from '../Constants/NotAvailable'
 const Home = () => {
 
   const[serverActive,setServerActive] = useState(false);
-  
-  
   const[jurusan,setJurusan] = useState({});
-  const[gelombang,setGelombang] = useState({});
-
-  const[namaSekolah,setNamaSekolah] = useState("");
-  const[slugSekolah,setSlugSekolah] = useState("");
-  const[tentangSekolah,setTentangSekolah] = useState("");
-  const[alamatSekolah,setAlamatSekolah] = useState("");
-  const[tahunAjaran,setTahunAjaran] = useState("");
+  const[sekolah,setSekolah] = useState({})
+  
   const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
-
+  
   useEffect(()=>{
     fetch()
   },[])
@@ -33,13 +26,7 @@ const Home = () => {
   const fetch = async (e) => {
     try{
       await axios.get(BASE_URL+'sekolah').then((response) => {
-        setJurusan(response.data.data.jurusan);
-        setNamaSekolah(response.data.data.nama_sekolah);
-        setTahunAjaran(response.data.data.tahun_ajaran.tahun_ajaran);
-        setSlugSekolah(response.data.data.slug);
-        setTentangSekolah(response.data.data.tentang_sekolah)
-        setAlamatSekolah(response.data.data.alamat_sekolah)
-        setGelombang(response.data.data.gelombang)
+        setSekolah(response.data.data);
         setServerActive(true);
       }).catch((err) =>{
         setServerActive(false);
@@ -58,18 +45,19 @@ const Home = () => {
     }
   }
 
+
 if(serverActive){
   return (
     <>
     <div className='backgrounds-bodys' style={{backgroundImage:`url(${bg})`,backgroundSize:'100% cover',backgroundRepeat:'no-repeat'}}>
-      <Navbars sekolahName={namaSekolah} />
-        <Hero sekolahName={namaSekolah} tahunAjaran={tahunAjaran} />
-        <WhyUs/>
+      <Navbars sekolahName={sekolah.nama_sekolah} />
+        <Hero sekolahName={sekolah.nama_sekolah} tahunAjaran={sekolah.tahun_ajaran.tahun_ajaran} />
+        <WhyUs why_us={sekolah.why_us} />
         <Jurusan jurusan={jurusan}/>
-        <Alur/>
+        <Alur alur={sekolah.alur}/>
         <Seleksi/>
-        <BiayaDanJadwal gelombang={gelombang} tahunAjaran={tahunAjaran}/>
-        <Footer sekolahName={namaSekolah} sekolahSlug={slugSekolah} alamatSekolah={alamatSekolah}/>
+        <BiayaDanJadwal gelombang={sekolah.gelombang} tahunAjaran={sekolah.tahun_ajaran.tahun_ajaran}/>
+        <Footer sekolahName={sekolah.nama_sekolah} dataSekolah={sekolah} sekolahSlug={sekolah.slug} alamatSekolah={sekolah.alamat_sekolah}/>
     </div>
        
     </>

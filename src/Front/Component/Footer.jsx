@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import foot_bg from './Images/footer.png'
 import { Link as LinkScroll } from 'react-scroll';
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Nav} from 'react-bootstrap'
 const Footer = (props) => {
   const date = new Date();
   const token = localStorage.getItem('token');
@@ -51,10 +51,9 @@ const Footer = (props) => {
           <div className="col-md-4">
             <h2>Bingung Mau Menghubungi Kemana ?</h2>
             <ul className=''>
-              <li> +62 8XX XXXX XXXX</li>
-              <li> <Link className='text-decoration-none' to={'mailto:loremipsum@gmail.com'}>loremipsum@gmail.com</Link> </li>
-              <li> <Link className='text-decoration-none' to={'loremipsum.com'}>loremipsum.com</Link> </li>
-            
+              <li> {props.dataSekolah.no_hp}</li>
+              <li> <Link className='text-decoration-none' to={'mailto:'+props.dataSekolah.email}>{props.dataSekolah.email}</Link> </li>
+              {/* <li> <Link className='text-decoration-none' to={'loremipsum.com'}>loremipsum.com</Link> </li> */}
             </ul>
           </div>
         </div>

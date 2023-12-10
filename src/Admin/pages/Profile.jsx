@@ -1,7 +1,37 @@
 import React from "react";
 import vectors from '../Components/Images/2.png'
 import { FaImages,FaUser } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 const Profile = () => {
+
+  const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
+  const token = localStorage.getItem('token');
+
+  const [profile,setProfile] = useState({})
+
+  useEffect(()=>{
+    if(token){
+      fetch();
+    }
+    if(!token){
+      navigate('/signin')
+    }
+  })
+
+  const fetch = async (e) =>{
+
+    try{
+      
+    }catch(e){
+      
+    }
+
+  }
+
+
   return (
     <>
       <div>

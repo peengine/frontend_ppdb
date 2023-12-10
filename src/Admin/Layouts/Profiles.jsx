@@ -5,6 +5,7 @@ import ProfileTabs from '../Components/ProfileTabs';
 import TopNav from '../Components/TopNav';
 const Profiles = () => {
     const [user,setUser] = useState({});
+    const[sekolah,setSekolah] = useState({});
     const navigate = useNavigate();
     const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
     const token = localStorage.getItem('token');
@@ -15,6 +16,7 @@ const Profiles = () => {
   
       if(token){
         fetchData()
+        fetchSekolah()
       }
     },[])
     const fetchData = async (e) => {
@@ -30,12 +32,21 @@ const Profiles = () => {
         console.log(error)
       })
     }
+    const fetchSekolah = async (e) => {
+      await axios.get(BASE_URL+'sekolah').then((response)=>{
+        if(response.data.data.nama_sekolah != null){
+          setSekolah(response.data.data);
+        }
+      }).catch((err) =>{
+        console.log(err)
+      })
+    }
   return (
     <>
     <div>
-        <TopNav username={user.name} />
+        <TopNav dataSekolah={sekolah} username={user.name} />
         <ProfileTabs/>
-        <Outlet/>
+        <Outlet dataSekolah={sekolah} />
     </div>
     </>
   )

@@ -1,6 +1,8 @@
 import React from 'react'
 import vector from '../Component/Images/why_us.png'
-const WhyUs = () => {
+const WhyUs = (props) => {
+
+    const wu = props.why_us
   return (
     <>
         <section id='why_us' className='bg-light'>
@@ -16,11 +18,18 @@ const WhyUs = () => {
                         <div className="text m-2">
                             <h2>Kenapa Memilih Kita ?</h2>
                             <ul>
-                                <li> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></li>
+                                {
+                                    wu && wu.map((result) => {
+                                        return (
+                                            <li> <p>{result.ket}</p></li>
+                                        )
+                                    })
+                                }
+                                {/* <li> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></li>
                                 <li> <p> Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></li>
                                 <li> <p>  Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? .</p></li>
                                 <li> <p> Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p></li>
-                                <li> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></li>
+                                <li> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></li> */}
                             </ul>
                         </div>
                     </div>

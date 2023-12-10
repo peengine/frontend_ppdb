@@ -25,7 +25,7 @@ const TopNav = (props) => {
           <Navbar.Brand href="/dashboard">
             {/* Logo And Brand here */}
             <Link to='/dashboard' className=' text-white text-decoration-none'>
-                <h4> <span className="badge bg-white text-primary p-2">PPDB</span><b> SMK LOREM</b></h4>
+                <h4> <span className="badge bg-white text-primary p-2">PPDB</span><b> {props.dataSekolah.nama_sekolah}</b></h4>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>

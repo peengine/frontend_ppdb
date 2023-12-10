@@ -1,6 +1,9 @@
 import React from 'react'
 import vector from './Images/alur.png';
-const Alur = () => {
+const Alur = (props) => {
+
+  const alur = props.alur;
+
   return (
     <>
     <section id='alur'>
@@ -11,11 +14,13 @@ const Alur = () => {
                         <div className="text">
                             <h2>Alur Pendaftarannya Bagaimana ?</h2>
                             <ul className='list-group'>
-                              <li> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></li>
-                              <li> <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></li>
-                              <li> <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? .</p></li>
-                              <li> <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p></li>
-                              <li> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></li>
+                              {
+                                alur && alur.map((result) =>{
+                                  return(
+                                    <li> <p>{result.ket}</p></li>      
+                                  );
+                                })
+                              }
                             </ul>
                         </div>
                     </div>

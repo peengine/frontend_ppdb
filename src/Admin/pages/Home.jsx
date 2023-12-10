@@ -2,8 +2,48 @@ import React from 'react'
 import { Table } from 'react-bootstrap'
 import { GoAlertFill } from "react-icons/go";
 import { FaCalendarCheck, FaImages } from "react-icons/fa";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Home = () => {
+
+    
+    const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
+    const token = localStorage.getItem('token');
+    
+    const [gelombang,setGelombang] = useState({});
+    const navigate = useNavigate();
+ 
+
+    useEffect(()=>{
+        if(!token){
+            navigate('/signin')
+        }
+        if(token){
+            fetch()
+        }
+    },[]);
+
+    const fetch = async (e) => {
+        
+        try{
+            //fetch Gelombang
+            await axios.get(BASE_URL+'gelombang').then((response)=>{
+                setGelombang(response.data)
+            }).catch((error)=>{
+                console.log(error)
+            })
+           
+        }catch(err){
+            console.log(err)
+        }
+        
+
+    }
+
+
   return (
     <>
         <div className="container">
@@ -45,14 +85,26 @@ const Home = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Jalur Prestasi</td>
-                                            <td>12 Nov 2023</td>
-                                            <td>13 Des 2023</td>
-                                            <td>Rp.XXX.XXX,00</td>
-                                            <td>Rp.XXX.XXX,00</td>
-                                            <td>DiBuka</td>
-                                        </tr>
+                                        {
+                                            gelombang.data && gelombang.data.map((result)=>{
+                                                return(
+                                                    <tr>
+                                                        <td>{result.nama_gelombang}</td>
+                                                        <td>{result.tgl_dibuka_gelombang}</td>
+                                                        <td>{result.tgl_ditutup_gelombang}</td>
+                                                        <td>Rp.{result.ppdb_biaya_daftar_masuk}</td>
+                                                        <td>Rp.{result.ppdb_biaya_dsp}</td>
+                                                        <td>
+                                                            {
+                                                                    result.status_gelombang == '0' ? <span className='badge bg-danger'>Closed</span> : <span className='badge bg-primary'>Open</span>
+                                                            }
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+
+                                        }
                                     </tbody>
                                 </Table>
                             </div>
