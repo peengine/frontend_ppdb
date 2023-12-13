@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { formatRupiah } from '../../Helpers/ValHelpers';
 
 const Home = () => {
 
@@ -92,8 +93,8 @@ const Home = () => {
                                                         <td>{result.nama_gelombang}</td>
                                                         <td>{result.tgl_dibuka_gelombang}</td>
                                                         <td>{result.tgl_ditutup_gelombang}</td>
-                                                        <td>Rp.{result.ppdb_biaya_daftar_masuk}</td>
-                                                        <td>Rp.{result.ppdb_biaya_dsp}</td>
+                                                        <td>{formatRupiah(result.ppdb_biaya_daftar_masuk)}</td>
+                                                        <td>{formatRupiah(result.ppdb_biaya_dsp)}</td>
                                                         <td>
                                                             {
                                                                     result.status_gelombang == '0' ? <span className='badge bg-danger'>Closed</span> : <span className='badge bg-primary'>Open</span>

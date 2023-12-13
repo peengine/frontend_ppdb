@@ -1,6 +1,10 @@
 import React from 'react'
 import vector_jurusan from './Images/jurusan.jpg'
-const Seleksi = () => {
+const Seleksi = (props) => {
+
+    const seleksi = props.seleksi
+    const URLS = process.env.REACT_APP_BASE_URL
+
   return (
     <>
     <section id="seleksi" className='bg-light'>
@@ -17,33 +21,21 @@ const Seleksi = () => {
                 </div>
             </div>
             <div className="row justify-content-center">
-                <div className="col-md-4 mt-3">
-                    <div className="card shadow ">
-                        <div className="card-body p-4 text-center">
-                                <img src={vector_jurusan} width={100} height={100} className='img img-circle my-2'/>
-                                <p>Seleksi Administrasi </p>
-                                <hr />
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4 mt-3">
-                    <div className="card shadow">
-                        <div className="card-body p-4 text-center">
-                                <img src={vector_jurusan} width={100} height={100} className='img img-circle my-2'/>
-                                <p>Tes Akademik </p>
-                                <hr />
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4 mt-3">
-                    <div className="card shadow">
-                        <div className="card-body p-4 text-center">
-                                <img src={vector_jurusan} width={100} height={100} className='img img-circle my-2'/>
-                                <p>Tes Wawancara</p>
-                                <hr />
-                        </div>
-                    </div>
-                </div>
+                {
+                    seleksi && seleksi.map((result)=>{
+                        return(
+                            <div className="col-md-4 mt-3">
+                                <div className="card shadow ">
+                                    <div className="card-body p-4 text-center">
+                                            <img src={URLS+result.foto_seleksi} width={100} height={100} className='img img-circle my-2'/>
+                                            <p>{result.ket_seleksi} </p>
+                                            <hr />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })
+                }
             </div>
         </div>
     </section>

@@ -55,7 +55,7 @@ if(serverActive){
         <WhyUs why_us={sekolah.why_us} />
         <Jurusan jurusan={jurusan}/>
         <Alur alur={sekolah.alur}/>
-        <Seleksi/>
+        <Seleksi seleksi={sekolah.seleksi} />
         <BiayaDanJadwal gelombang={sekolah.gelombang} tahunAjaran={sekolah.tahun_ajaran.tahun_ajaran}/>
         <Footer sekolahName={sekolah.nama_sekolah} dataSekolah={sekolah} sekolahSlug={sekolah.slug} alamatSekolah={sekolah.alamat_sekolah}/>
     </div>

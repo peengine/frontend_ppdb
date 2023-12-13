@@ -9,13 +9,25 @@ const Signin = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const[validation,setValidation] = useState([]);
+  const[sekolah,setSekolah] = useState({});
   const navigate = useNavigate()
 
   useEffect(()=>{
     if(localStorage.getItem('token')){
       navigate('/dashboard')
     }
+    fetchSekolah()
   },[]);
+
+  const fetchSekolah = async (e) => {
+    await axios.get(BASE_URL+'sekolah').then((response)=>{
+      if(response.data.data.nama_sekolah != null){
+        setSekolah(response.data.data);
+      }
+    }).catch((err) =>{
+      console.log(err)
+    })
+  }
 
   const signinHandler = async (e) => {
       e.preventDefault();
@@ -51,7 +63,7 @@ const Signin = () => {
             <div className="row justify-content-center">
               <div className="col-md-5">
                 <div className="text-center">
-                  <h4> <span className="badge bg-primary p-2">PPDB</span><b> SMK LOREM</b></h4>
+                  <h4> <span className="badge bg-primary p-2">PPDB</span><b>{sekolah.nama_sekolah}</b></h4>
                 </div>
                   
                 <form onSubmit={signinHandler}>

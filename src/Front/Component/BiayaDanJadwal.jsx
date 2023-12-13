@@ -1,8 +1,10 @@
 import React from 'react'
+import { formatRupiah } from '../../Helpers/ValHelpers';
 
 const BiayaDanJadwal = (props) => {
     const month = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","Nov","Dec"];
-    const biaya = props.gelombang.ppdb_biaya_daftar_masuk
+    
+    const biaya = formatRupiah(props.gelombang.ppdb_biaya_daftar_masuk)
     const tanggalBuka = new Date(props.gelombang.tgl_dibuka_gelombang)
     const tanggalTutup = new Date(props.gelombang.tgl_ditutup_gelombang)
 
@@ -30,7 +32,7 @@ const BiayaDanJadwal = (props) => {
                                 <p>{props.gelombang.nama_gelombang}</p>
                                 <hr />
                                 <br />
-                                <h1><b>Rp.{biaya}</b></h1>
+                                <h1><b>{biaya}</b></h1>
                                 <br />
                                 <p>
                                     Pembayaran Bisa Melalui transfer ke No.Virtual Account yang tertera pada saat pendaftaran atau Langsung Ditempat
@@ -49,7 +51,7 @@ const BiayaDanJadwal = (props) => {
                                 <h1><b>{tanggalTutup.getDate()} {month[tanggalTutup.getMonth()]}</b></h1>
                                 <br />
                                 <p>
-                                    Pastikan anda sudah terdaftar,Jadwal Bisa Berubah Sewaktu Waktu
+                                    Jadwal Bisa Berubah Sewaktu Waktu
                                 </p>
                         </div>
                     </div>

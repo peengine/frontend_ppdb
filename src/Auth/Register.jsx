@@ -10,15 +10,19 @@ const Register = () => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const [confirmationPassword,setConfirmationPassword] = useState("")
+  const[sekolah,setSekolah] = useState({})
+
 
   const[validation,setValidation] = useState([])
 
   const navigate = useNavigate()
 
   useEffect(()=>{
+    
     if(localStorage.getItem('token')){
       navigate('/dashboard')
     }
+    fetchSekolah()
   },[]);
   const registerHandler = async (e) =>{
     e.preventDefault()
@@ -39,6 +43,15 @@ const Register = () => {
     }
     
   }
+  const fetchSekolah = async (e) => {
+    await axios.get(BASE_URL+'sekolah').then((response)=>{
+      if(response.data.data.nama_sekolah != null){
+        setSekolah(response.data.data);
+      }
+    }).catch((err) =>{
+      console.log(err)
+    })
+  }
 
   return (
     <>
@@ -49,7 +62,7 @@ const Register = () => {
             <div className="row justify-content-center">
               <div className="col-md-5">
               <div className="text-center">
-                  <h4> <span className="badge bg-primary p-2">PPDB</span><b> SMK LOREM</b></h4>
+                  <h4> <span className="badge bg-primary p-2">PPDB</span><b> {sekolah.nama_sekolah}</b></h4>
                 </div>
                 <form onSubmit={registerHandler}>
                   <div className="card shadow card-primary card-outline">
