@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 import { GoAlertFill } from "react-icons/go";
-import { FaCalendarCheck, FaImages } from "react-icons/fa";
+import { FaCalendarCheck } from "react-icons/fa";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -9,15 +9,12 @@ import axios from 'axios';
 import { formatRupiah } from '../../Helpers/ValHelpers';
 
 const Home = () => {
-
-    
     const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
     const token = localStorage.getItem('token');
     
     const [gelombang,setGelombang] = useState({});
     const navigate = useNavigate();
  
-
     useEffect(()=>{
         if(!token){
             navigate('/signin')
@@ -97,7 +94,7 @@ const Home = () => {
                                                         <td>{formatRupiah(result.ppdb_biaya_dsp)}</td>
                                                         <td>
                                                             {
-                                                                    result.status_gelombang == '0' ? <span className='badge bg-danger'>Closed</span> : <span className='badge bg-primary'>Open</span>
+                                                                    result.status_gelombang === '0' ? <span className='badge bg-danger'>Closed</span> : <span className='badge bg-primary'>Open</span>
                                                             }
                                                             
                                                         </td>

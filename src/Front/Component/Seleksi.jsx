@@ -1,5 +1,5 @@
 import React from 'react'
-import vector_jurusan from './Images/jurusan.jpg'
+
 const Seleksi = (props) => {
 
     const seleksi = props.seleksi

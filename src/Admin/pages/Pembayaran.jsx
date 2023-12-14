@@ -11,13 +11,11 @@ const Pembayaran = () => {
                             <h5 className="card-title">Administrasi</h5>
                             <small className='card-subtitle'>Upload Bukti dan Lakukan Pembayaran disini!</small>
                             <hr />
+                            <div className="alert alert-primary">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-md-12">
-                    <button type="submit" className='btn btn-primary m-3' >Simpan</button>
                 </div>
             </div>
         </div>

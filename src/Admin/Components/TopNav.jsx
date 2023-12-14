@@ -9,7 +9,7 @@ const TopNav = (props) => {
   const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   const token = localStorage.getItem('token');
   const logoutHandler = async (e) => {
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+token
+      axios.defaults.headers.common['Authorization'] = 'Bearer '+token
       await axios.post(BASE_URL+'auth/logout').then((response)=>{
         localStorage.removeItem('token')
         navigate('/signin')
