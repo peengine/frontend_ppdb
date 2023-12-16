@@ -2,44 +2,19 @@ import React from 'react'
 import { Table } from 'react-bootstrap'
 import { GoAlertFill } from "react-icons/go";
 import { FaCalendarCheck } from "react-icons/fa";
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { formatRupiah } from '../../Helpers/ValHelpers';
 
-const Home = () => {
-    const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
+const Home = (props) => {
     const token = localStorage.getItem('token');
-    
-    const [gelombang,setGelombang] = useState({});
+    const gelombang = props.dataGelombang != null ? props.dataGelombang : {};
     const navigate = useNavigate();
- 
     useEffect(()=>{
         if(!token){
             navigate('/signin')
         }
-        if(token){
-            fetch()
-        }
-    },[]);
-
-    const fetch = async (e) => {
-        
-        try{
-            //fetch Gelombang
-            await axios.get(BASE_URL+'gelombang').then((response)=>{
-                setGelombang(response.data)
-            }).catch((error)=>{
-                console.log(error)
-            })
-           
-        }catch(err){
-            console.log(err)
-        }
-        
-
-    }
+    },[props]);
 
 
   return (
