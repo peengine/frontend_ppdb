@@ -102,15 +102,14 @@ const Profile = () => {
       if (result.isConfirmed) {
         axios.defaults.headers.common['Authorization'] = 'Bearer '+token
         await axios.post(BASE_URL+'auth/profile/update',fd).then((response)=>{
-          setValidation(response.data)
-          if(validation.message){
-            Swal.fire(validation.message, '', 'success')
+          if(response.data.message){
+            Swal.fire(response.data.message, '', 'success')
           }
-          if(validation.error){
-            Swal.fire(validation.error, '', 'danger')
+          if(response.data.error){
+            Swal.fire(response.data.error, '', 'danger')
           }
         }).catch((err) => {
-          setValidation(err.response.data);
+          setValidation(err);
         })
       }
     })

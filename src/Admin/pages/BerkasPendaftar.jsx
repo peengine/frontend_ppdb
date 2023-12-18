@@ -45,6 +45,7 @@ const BerkasPendaftar = (props) => {
     }
     const berkasHandleChange = (e) => {
         const{name, value} = e.target
+
     }
 
     const onSubmitHandler = async (e) =>{
@@ -144,7 +145,7 @@ const BerkasPendaftar = (props) => {
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
-                                                        <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
+                                                        <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
                                                     </div>
                                                 </>
                                                 
@@ -153,7 +154,7 @@ const BerkasPendaftar = (props) => {
                                             return(
                                                 <div className="form-group">
                                                     <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
-                                                    <input type="file" name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
+                                                    <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
                                                 </div>
                                             );    
                                         }

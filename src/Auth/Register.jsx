@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const Register = () => {
 
@@ -32,11 +33,29 @@ const Register = () => {
     fd.append('email',email)
     fd.append('password',password)
     fd.append('password_confirmation',confirmationPassword)
+
     try{
-      await axios.post(BASE_URL+"auth/register",fd).then((response) => {
-        navigate('/signin')
-      }).catch((error) => {
-        setValidation(error.response.data);
+      Swal.fire({
+        title: 'Are You sure Update Profile ?',
+        icon:'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        denyButtonText: `Cancel`,
+      }).then( async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          await axios.post(BASE_URL+"auth/register",fd).then((response) => {
+            if(response.data.message){
+              Swal.fire(response.data.message, '', 'success')
+            }
+            if(response.data.error){
+              Swal.fire(response.data.error, '', 'danger')
+            }
+            navigate('/signin')
+          }).catch((error) => {
+            setValidation(error.response.data);
+          })
+        }
       })
     }catch(err){
       setValidation({"error" : [`Oops,Server is busy or not Connected, Please Try Again Later!`]});   

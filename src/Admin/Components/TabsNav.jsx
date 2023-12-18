@@ -16,8 +16,8 @@ const TabsNav = () => {
   const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   const URLS = process.env.REACT_APP_BASE_URL
   const token = localStorage.getItem('token');
+  const activeKey = localStorage.getItem('activeKey')
   const navigate = useNavigate()
-
 
   const[title,setTitle] = useState("Dashboard")
   const[gelombang,setGelombang] = useState({})
@@ -26,6 +26,8 @@ const TabsNav = () => {
   const[type_berkas,setTypeBerkas] = useState({})
   const[validation,setValidation] = useState()
   const[catchError,setCatchError] = useState()
+
+
   useEffect(()=>{
     if(!token){
         navigate('/signin')
@@ -34,7 +36,6 @@ const TabsNav = () => {
         fetch()
     }
 },[]);
-
   const fetch = async (e) => {
           
     try{
@@ -80,14 +81,10 @@ const TabsNav = () => {
     }
   }
 
-  const handleSelect = (key) =>{
-    setTitle("Dashboard/"+key.charAt(0).toUpperCase()+key.slice(1));
-  }
-
   return (
    <>
         
-        <Tabs onSelect={handleSelect}  transition={true} id="noanim-tab-example" className='bg-primary' >
+        <Tabs defaultActiveKey={"home"} transition={true} id="noanim-tab-example" className='bg-primary' >
           <Tab eventKey="home" title={( <small><AiFillDashboard/> Dashboard </small> )}>
             <br />
             <Home dataGelombang={gelombang} />
