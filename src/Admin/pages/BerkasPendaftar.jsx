@@ -4,6 +4,8 @@ import { FaPaste } from "react-icons/fa";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 const BerkasPendaftar = (props) => {
 
     const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
@@ -41,12 +43,44 @@ const BerkasPendaftar = (props) => {
             return {...prev,[name]:value};
         })
     }
+    const berkasHandleChange = (e) => {
+        const{name, value} = e.target
+    }
 
+    const onSubmitHandler = async (e) =>{
+        e.preventDefault();
+
+        const fd = new FormData();
+        fd.append("data_lain",JSON.stringify(dataLain));
+        fd.append("data_berkas",berkas);
+        Swal.fire({
+            title: 'Are You sure want to save  ?',
+            icon:'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: `Cancel`,
+          }).then( async (result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              axios.defaults.headers.common['Authorization'] = 'Bearer '+token
+              await axios.post(BASE_URL+'auth/pendaftar/set',fd).then((response)=>{
+                if(response.data.message){
+                  Swal.fire(response.data.message, '', 'success')
+                }
+                if(response.data.error){
+                  Swal.fire(response.data.error, '', 'danger')
+                }
+              }).catch((err) => {
+                setValidation(err);
+              })
+            }
+          })
+    }
 
   return (
    <>
     <div>
-        <form method='POST' encType='multipart/form-data' >
+        <form method='POST' onSubmit={onSubmitHandler} encType='multipart/form-data' >
             <div className="container">
                 <div className="row">
                     <div className="col-md-12">
@@ -57,7 +91,7 @@ const BerkasPendaftar = (props) => {
                                 <hr />
                                 <div className="form-group m-2">
                                     <label htmlFor="pilihan_jurusan_utama">Pilihan Jurusan Utama</label>
-                                    <select name="pilihan_jurusan_utama" onChange={dataLainHandleChange} value={dataLain.pilihan_jurusan_utama} id="pilihan_jurusan_utama" className='form-control form-select' required>
+                                    <select name="pilihan_jurusan_utama" onChange={(e) => dataLainHandleChange(e)} value={dataLain.pilihan_jurusan_utama} id="pilihan_jurusan_utama" className='form-control form-select' required>
                                         <option value="">-- Pilih Jurusan Utama --</option>
                                         {
                                             jurusan.data && jurusan.data.map((result)=>{
@@ -72,7 +106,7 @@ const BerkasPendaftar = (props) => {
                                 </div>
                                 <div className="form-group m-2">
                                     <label htmlFor="pilihan_jurusan_cadangan">Pilihan Jurusan Cadangan</label>
-                                    <select name="pilihan_jurusan_cadangan" onChange={dataLainHandleChange} value={dataLain.pilihan_jurusan_cadangan} id="pilihan_jurusan_cadangan" className='form-control form-select' required>
+                                    <select name="pilihan_jurusan_cadangan" onChange={(e) => dataLainHandleChange(e)} value={dataLain.pilihan_jurusan_cadangan} id="pilihan_jurusan_cadangan" className='form-control form-select' required>
                                         <option value="">-- Pilih Jurusan Cadangan --</option>
                                         {
                                             jurusan.data && jurusan.data.map((result)=>{
@@ -110,7 +144,7 @@ const BerkasPendaftar = (props) => {
                                                     </div>
                                                     <div className="form-group">
                                                         <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
-                                                        <input type="file" name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
+                                                        <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
                                                     </div>
                                                 </>
                                                 

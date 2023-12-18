@@ -103,6 +103,8 @@ const Signin = () => {
                             <small>or</small>
                             <br />
                             <small>Don't Have Account ? Register <a href="/register">here</a></small>
+                            <hr />
+                            <a href="/" className='btn btn-danger form-control'>Back to Home</a>
                           </div>
                     </div>
                   </div>

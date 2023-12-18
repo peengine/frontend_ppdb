@@ -118,6 +118,8 @@ const Register = () => {
                             <small>or</small>
                             <br />
                             <small>Already Have Account ? Sign in <a href="/signin">here</a></small>
+                            <hr />
+                            <a href="/" className='btn btn-danger form-control'>Back to Home</a>
                           </div>
                     </div>
                   </div>

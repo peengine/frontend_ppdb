@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 const Profile = () => {
 
 
@@ -90,12 +91,32 @@ const Profile = () => {
     fd.append("bio",bio)
     fd.append("alamat",alamat)
 
-    axios.defaults.headers.common['Authorization'] = 'Bearer '+token
-    await axios.post(BASE_URL+'auth/profile/update',fd).then((response)=>{
-      setValidation(response.data)
-    }).catch((err) => {
-      setValidation(err.response.data);
+    Swal.fire({
+      title: 'Are You sure Update Profile ?',
+      icon:'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `Cancel`,
+    }).then( async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+token
+        await axios.post(BASE_URL+'auth/profile/update',fd).then((response)=>{
+          setValidation(response.data)
+          if(validation.message){
+            Swal.fire(validation.message, '', 'success')
+          }
+          if(validation.error){
+            Swal.fire(validation.error, '', 'danger')
+          }
+        }).catch((err) => {
+          setValidation(err.response.data);
+        })
+      }
     })
+    
+
+   
 
   }
 
@@ -109,16 +130,6 @@ const Profile = () => {
               <div className="col-md-12">
                 <div className="alert alert-danger text-center mb-3 mt-3">
                   {validation.error}
-                </div>
-              </div>
-            </div>
-           
-          )}
-          {validation.message && (
-            <div className="row">
-              <div className="col-md-12">
-                <div className="alert alert-primary text-center mb-3 mt-3">
-                  {validation.message}
                 </div>
               </div>
             </div>

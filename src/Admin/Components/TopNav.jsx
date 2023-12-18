@@ -3,18 +3,30 @@ import { Container, Navbar,Nav,NavDropdown, Tabs, Tab } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from "react-icons/fa";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const TopNav = (props) => {
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   const token = localStorage.getItem('token');
   const logoutHandler = async (e) => {
-      axios.defaults.headers.common['Authorization'] = 'Bearer '+token
-      await axios.post(BASE_URL+'auth/logout').then((response)=>{
-        localStorage.removeItem('token')
-        navigate('/signin')
-      }).catch((error) => {
-        console.log(error)
+
+      Swal.fire({
+        title: 'Are You sure want to Logout ?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Logout',
+        denyButtonText: `Cancel`,
+      }).then( async (result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          axios.defaults.headers.common['Authorization'] = 'Bearer '+token
+          await axios.post(BASE_URL+'auth/logout').then((response)=>{
+            localStorage.removeItem('token')
+            navigate('/signin')
+          }).catch((error) => {
+            console.log(error)
+          }) 
+        }
       })
   }
   return (

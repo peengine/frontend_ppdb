@@ -19,6 +19,7 @@ const TabsNav = () => {
   const navigate = useNavigate()
 
 
+  const[title,setTitle] = useState("Dashboard")
   const[gelombang,setGelombang] = useState({})
   const[pendaftar,setPendaftar] = useState({})
   const[jurusan,setJurusan] = useState({})
@@ -79,14 +80,19 @@ const TabsNav = () => {
     }
   }
 
+  const handleSelect = (key) =>{
+    setTitle("Dashboard/"+key.charAt(0).toUpperCase()+key.slice(1));
+  }
+
   return (
    <>
-        <Tabs defaultActiveKey="home" transition={true} id="noanim-tab-example" className='bg-primary' >
+        
+        <Tabs onSelect={handleSelect}  transition={true} id="noanim-tab-example" className='bg-primary' >
           <Tab eventKey="home" title={( <small><AiFillDashboard/> Dashboard </small> )}>
             <br />
             <Home dataGelombang={gelombang} />
           </Tab>
-          <Tab eventKey="pendaftar"  title={( <small><FaUser/> Data Pendaftaran </small> )}>
+          <Tab eventKey="pendaftar"  title={( <small><FaUser/> Data Diri </small> )}>
             <br />
             <Pendaftar dataPendaftar={pendaftar}/>
           </Tab>
