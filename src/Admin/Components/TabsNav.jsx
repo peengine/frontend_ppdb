@@ -14,12 +14,9 @@ import { useState } from 'react';
 const TabsNav = () => {
 
   const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
-  const URLS = process.env.REACT_APP_BASE_URL
   const token = localStorage.getItem('token');
-  const activeKey = localStorage.getItem('activeKey')
   const navigate = useNavigate()
 
-  const[title,setTitle] = useState("Dashboard")
   const[gelombang,setGelombang] = useState({})
   const[pendaftar,setPendaftar] = useState({})
   const[jurusan,setJurusan] = useState({})
