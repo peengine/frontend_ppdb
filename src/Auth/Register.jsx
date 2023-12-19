@@ -36,7 +36,7 @@ const Register = () => {
 
     try{
       Swal.fire({
-        title: 'Are You sure Update Profile ?',
+        title: 'Are You sure to Register ?',
         icon:'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes',

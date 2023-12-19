@@ -23,6 +23,7 @@ const BerkasPendaftar = (props) => {
     const [type_berkas,setTypeBerkas] = useState({});
     const[dataLain,setDataLain] = useState({});
     const[berkas,setBerkas] = useState([]);
+    const[upBerkas,setUpBerkas] = useState([])
     const[validation,setValidation] = useState({})
     const navigate = useNavigate();
  
@@ -44,8 +45,11 @@ const BerkasPendaftar = (props) => {
         })
     }
     const berkasHandleChange = (e) => {
-        const{name, value} = e.target
-
+        const{name} = e.target
+        const spname = name.split('_')
+        const data = upBerkas;
+        data[spname[spname.length - 1]] = {[name]:e.target.files[0],['name']:name}
+        setUpBerkas(data)
     }
 
     const onSubmitHandler = async (e) =>{
@@ -53,7 +57,9 @@ const BerkasPendaftar = (props) => {
 
         const fd = new FormData();
         fd.append("data_lain",JSON.stringify(dataLain));
-        fd.append("data_berkas",berkas);
+        upBerkas && upBerkas.map((result)=>{
+            fd.append(result['name'],result[result['name']])
+        })
         Swal.fire({
             title: 'Are You sure want to save  ?',
             icon:'warning',
@@ -147,15 +153,18 @@ const BerkasPendaftar = (props) => {
                                                         <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
                                                         <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
                                                     </div>
+                                                    <br />
                                                 </>
                                                 
                                             );
                                         }else{
                                             return(
-                                                <div className="form-group">
-                                                    <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
-                                                    <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
-                                                </div>
+                                                <>
+                                                    <div className="form-group">
+                                                        <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
+                                                        <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
+                                                    </div>
+                                                </>
                                             );    
                                         }
                                     })

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -5,12 +6,16 @@ import { useNavigate } from "react-router-dom";
 import vectors from "../Components/Images/2.png";
 
 const Pembayaran = (props) => {
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   const token = localStorage.getItem('token');
-  
 
   const pPembayaran = props.dataPendaftar.data_pembayaran != null ? props.dataPendaftar.data_pembayaran : [];
+  const pDatalain = props.dataPendaftar.data_lain != null ? props.dataPendaftar.data_lain : {};
+  
   const [showHide, setShowHide] = useState("");
   const[pembayaran,setPembayaran] = useState([]);
+  const[data_lain,setDatalain] = useState({})
+  const[sekolah,setSekolah] = useState({})
   const navigate = useNavigate()
   
   
@@ -18,8 +23,20 @@ const Pembayaran = (props) => {
     if(!token){
       navigate('/signin')
     }
+    fetchSekolah();
     setPembayaran(pPembayaran);
+    setDatalain(pDatalain)
   },[props])
+
+  const fetchSekolah = async (e) => {
+    await axios.get(BASE_URL+'sekolah').then((response)=>{
+      if(response.data.data.nama_sekolah != null){
+        setSekolah(response.data.data);
+      }
+    }).catch((err) =>{
+      console.log(err)
+    })
+  }
 
   const handleType = (e) => {
     const { value, name } = e.target;
@@ -97,11 +114,11 @@ const Pembayaran = (props) => {
                       <hr />
                       <div className="row">
                         <div className="col-md-7">
-                          <h3>SMK LOREM IPSUM SIT DULUR AMET</h3>
+                          <h3>{sekolah.nama_sekolah}</h3>
                           <small>
-                            Lorem Ipsum sit Dolor Amet ohkasjldfjlaksjdfjkasdf
+                            {sekolah.slug}
                           </small>
-                          <p>Jl. Lorem Ipsum Sit Dolor Amet</p>
+                          <p>{sekolah.alamat_sekolah}</p>
                         </div>
                         <div className="col-md-5 text-end">
                           <span className="badge bg-danger m-2">Belum Lunas</span>
