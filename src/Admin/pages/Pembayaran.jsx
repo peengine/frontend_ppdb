@@ -1,21 +1,28 @@
+
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { Table } from "react-bootstrap";
+import { FaCashRegister } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { formatRupiah, formatTanggal, getStatus } from "../../Helpers/ValHelpers";
 import vectors from "../Components/Images/2.png";
 
 const Pembayaran = (props) => {
-  const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   const token = localStorage.getItem('token');
-
+  const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   const pPembayaran = props.dataPendaftar.data_pembayaran != null ? props.dataPendaftar.data_pembayaran : [];
-  const pDatalain = props.dataPendaftar.data_lain != null ? props.dataPendaftar.data_lain : {};
-  
+  const pSekolah = props.dataSekolah != null ? props.dataSekolah : {};
+
   const [showHide, setShowHide] = useState("");
   const[pembayaran,setPembayaran] = useState([]);
-  const[data_lain,setDatalain] = useState({})
   const[sekolah,setSekolah] = useState({})
+  const[img,setImg] = useState(vectors)
+  const[via,setVia] = useState("")
+  const[pBukti,setBukti] = useState("-")
+  const[ket,setKet] = useState("")
   const navigate = useNavigate()
   
   
@@ -23,30 +30,107 @@ const Pembayaran = (props) => {
     if(!token){
       navigate('/signin')
     }
-    fetchSekolah();
+    setSekolah(pSekolah)
     setPembayaran(pPembayaran);
-    setDatalain(pDatalain)
   },[props])
 
-  const fetchSekolah = async (e) => {
-    await axios.get(BASE_URL+'sekolah').then((response)=>{
-      if(response.data.data.nama_sekolah != null){
-        setSekolah(response.data.data);
-      }
-    }).catch((err) =>{
-      console.log(err)
-    })
+  const handleType = (e) => {
+    const { value } = e.target;
+    setShowHide(value);
+    setVia(value)
+  };
+  const handleBukti = (e) => {
+    setImg(URL.createObjectURL(e.target.files[0]));
+    setBukti(e.target.files[0]);
   }
 
-  const handleType = (e) => {
-    const { value, name } = e.target;
-    setShowHide(value);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData();
+    fd.append("via_pembayaran",via)
+    fd.append("bukti_pembayaran",pBukti)
+    fd.append("ket_pembayaran",ket)
+
+
+    Swal.fire({
+      title: 'Are You sure want to save ?',
+      icon:'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: `Cancel`,
+    }).then( async (result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+token
+        await axios.post(BASE_URL+'auth/pendaftar/set',fd).then((response)=>{
+          if(response.status === 200){
+            if(typeof response.data != 'undefined'){
+              if(response.data.message){
+                Swal.fire(response.data.message, '', 'success')
+                window.location.reload()
+              }
+              if(response.data.error){
+                Swal.fire(response.data.error, '', 'danger')
+              }
+            }
+            
+           
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+    })
+  }
   if(pembayaran.length > 0){
     return(
       <>
       <div className="container">
-
+        <div className="row">
+          <div className="col-md-12">
+            <div className="card card-primary shadow m-3">
+              <div className="card-body">
+                <h5 className="card-title">
+                <FaCashRegister/>Riwayat Administrasi
+                </h5>
+                <small className="card-subtitle">
+                  Informasi Riwayat Pembayaran tagihan pendaftaran ada disini !
+                </small>
+                <hr />
+                <div className="table-responsive">
+                  <Table striped bordered hover className="text-center" >
+                    <thead>
+                      <th>No</th>
+                      <th>Methode</th>
+                      <th>Tanggal</th>
+                      <th>Kode</th>
+                      <th>Type</th>
+                      <th>Nominal</th>
+                      <th>Status</th>
+                    </thead>
+                    <tbody>
+                      {pembayaran && pembayaran.map((result,index)=>{
+                        return (
+                          <tr>
+                            <td>{index + 1}</td>
+                            <td>{result.via_pembayaran}</td>
+                            <td>{formatTanggal(result.created_at)}</td>
+                            <td>{result.kode_pembayaran}</td>
+                            <td>{result.type_pembayaran}</td>
+                            <td>{formatRupiah(result.nominal_pembayaran)}</td>
+                            <td>
+                             {getStatus(result.status_pembayaran)}
+                            </td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </Table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       </>
     );
@@ -54,13 +138,13 @@ const Pembayaran = (props) => {
   }else{
     return (
       <>
-        <form method="POST" encType="multipart/form-data">
+        <form method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="container">
             <div className="row">
               <div className="col-md-12">
                 <div className="card card-primary shadow m-3">
                   <div className="card-body">
-                    <h5 className="card-title">Administrasi</h5>
+                    <h5 className="card-title"><FaCashRegister/> Administrasi</h5>
                     <small className="card-subtitle">
                       Informasi tagihan pembayaran pendaftaran tersedia disini!
                     </small>
@@ -123,8 +207,8 @@ const Pembayaran = (props) => {
                         <div className="col-md-5 text-end">
                           <span className="badge bg-danger m-2">Belum Lunas</span>
                           <div className="alert alert-dark text-end">
-                            <small>Biaya Pendaftaran</small>
-                            <h2>Rp.109.000.000,00</h2>
+                            <small>Biaya Pendaftaran ({sekolah.gelombang.nama_gelombang})</small>
+                            <h2>{formatRupiah(sekolah.gelombang.ppdb_biaya_daftar_masuk)}</h2>
                           </div>
                         </div>
                       </div>
@@ -149,7 +233,7 @@ const Pembayaran = (props) => {
                       <hr />
                       <div className="row">
                         <div className="col-md-7">
-                          <img src={vectors} width={"300px"} />
+                          <img src={img} width={"300px"} />
                           <div className="form-group">
                             <label htmlFor="bukti_pembayaran">
                               Bukti Pembayaran
@@ -157,16 +241,21 @@ const Pembayaran = (props) => {
                             <input
                               type="file"
                               name="bukti_pembayaran"
+                              onChange={(e) => handleBukti(e)}
                               id="bukti_pembayaran"
                               className="form-control form-input"
                             />
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="ket_pembayaran">Keterangan Pembayaran</label>
+                            <textarea name="ket_pembayaran" onChange={(e) => setKet(e.target.value)} placeholder="Keterangan Pembayaran" id="ket_pembayaran" className="form-control form-input" cols="30" rows="10"></textarea>
                           </div>
                         </div>
                         <div className="col-md-5 text-end">
                           <span className="badge bg-danger m-2">Belum Lunas</span>
                           <div className="alert alert-dark text-end">
-                            <small>Biaya Pendaftaran</small>
-                            <h2>Rp.109.000.000,00</h2>
+                            <small>Biaya Pendaftaran ({sekolah.gelombang.nama_gelombang})</small>
+                            <h2>{formatRupiah(sekolah.gelombang.ppdb_biaya_daftar_masuk)}</h2>
                           </div>
                           <hr />
                           <div className="text-start">

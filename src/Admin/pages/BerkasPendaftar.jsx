@@ -11,16 +11,8 @@ const BerkasPendaftar = (props) => {
     const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
     const URLS = process.env.REACT_APP_BASE_URL
     const token = localStorage.getItem('token');
-    
-
     const pBerkas = props.dataPendaftar.data_berkas != null ? props.dataPendaftar.data_berkas : [];
     const pDataLain = props.dataPendaftar.data_lain != null ? props.dataPendaftar.data_lain : {};
-
-    const pJurusan = props.dataJurusan != null ? props.dataJurusan : {};
-    const pTypeBerkas = props.dataTypeBerkas != null ? props.dataTypeBerkas : {};
-
-    const [jurusan,setJurusan] = useState({});
-    const [type_berkas,setTypeBerkas] = useState({});
     const[dataLain,setDataLain] = useState({});
     const[berkas,setBerkas] = useState([]);
     const[upBerkas,setUpBerkas] = useState([])
@@ -34,8 +26,6 @@ const BerkasPendaftar = (props) => {
         }
         setBerkas(pBerkas)
         setDataLain(pDataLain)
-        setJurusan(pJurusan)
-        setTypeBerkas(pTypeBerkas)
     },[props]);
 
     const dataLainHandleChange = (e) => {
@@ -86,9 +76,9 @@ const BerkasPendaftar = (props) => {
 
   return (
    <>
-    <div>
+    <div className="container">
         <form method='POST' onSubmit={onSubmitHandler} encType='multipart/form-data' >
-            <div className="container">
+           
                 <div className="row">
                     <div className="col-md-12">
                         <div className="card card-primary shadow m-3">
@@ -101,9 +91,9 @@ const BerkasPendaftar = (props) => {
                                     <select name="pilihan_jurusan_utama" onChange={(e) => dataLainHandleChange(e)} value={dataLain.pilihan_jurusan_utama} id="pilihan_jurusan_utama" className='form-control form-select' required>
                                         <option value="">-- Pilih Jurusan Utama --</option>
                                         {
-                                            jurusan.data && jurusan.data.map((result)=>{
+                                            props.dataSekolah.jurusan && props.dataSekolah.jurusan.map((result)=>{
                                                 return (
-                                                    <option value={result.id}>{result.nama_kompetensi}</option>
+                                                    <option value={result.id} key={result.id}>{result.nama_kompetensi}</option>
                                                 )
                                             })
                                         }
@@ -116,14 +106,15 @@ const BerkasPendaftar = (props) => {
                                     <select name="pilihan_jurusan_cadangan" onChange={(e) => dataLainHandleChange(e)} value={dataLain.pilihan_jurusan_cadangan} id="pilihan_jurusan_cadangan" className='form-control form-select' required>
                                         <option value="">-- Pilih Jurusan Cadangan --</option>
                                         {
-                                            jurusan.data && jurusan.data.map((result)=>{
+                                            props.dataSekolah.jurusan && props.dataSekolah.jurusan.map((result)=>{
                                                 return (
-                                                    <option value={result.id}>{result.nama_kompetensi}</option>
+                                                    <option value={result.id} key={result.id}>{result.nama_kompetensi}</option>
                                                 )
                                             })
                                         }
                                     </select>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -136,14 +127,14 @@ const BerkasPendaftar = (props) => {
                                 <small className='card-subtitle'>Lengkapi Berkas Pendaftaran Kamu disini !</small>
                                 <hr />
                                 {
-                                    type_berkas.data && type_berkas.data.map((result)=>{
+                                    props.dataSekolah.type_berkas && props.dataSekolah.type_berkas.map((result)=>{
 
                                         const valberkas = berkas.filter((response) => {
                                             return response.type_berkas == result.id
                                         })[0]
                                         if(typeof valberkas !== 'undefined'){
                                             return(
-                                                <>
+                                                <div key={result.id}>
                                                     <div className="form-group">
                                                         <a href={URLS+valberkas.berkas} target='_blank' className="alert form-control bg-info text-center text-decoration-none">
                                                                 {result.nama_berkas+" Lama"}
@@ -154,17 +145,17 @@ const BerkasPendaftar = (props) => {
                                                         <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
                                                     </div>
                                                     <br />
-                                                </>
+                                                </div>
                                                 
                                             );
                                         }else{
                                             return(
-                                                <>
+                                                <div  key={result.id}>
                                                     <div className="form-group">
                                                         <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
                                                         <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
                                                     </div>
-                                                </>
+                                                </div>
                                             );    
                                         }
                                     })
@@ -178,10 +169,9 @@ const BerkasPendaftar = (props) => {
                         <button type="submit" className='btn btn-primary m-3' >Simpan</button>
                     </div>
                 </div>
-            </div>
+            
         </form>
-    </div>
-     
+    </div>  
    </>
   )
 }

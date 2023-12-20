@@ -31,8 +31,6 @@ const Pendaftar = (props) => {
   const [Ayah, setAyah] = useState({});
   const [Ibu, setIbu] = useState({});
   const [Wali, setWali] = useState({});
-
-  const [validation, setValidation] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,10 +59,6 @@ const Pendaftar = (props) => {
   const onChangePpHandler = (e) => {
     setPp(URL.createObjectURL(e.target.files[0]));
     setFProfile(e.target.files[0]);
-    // const { name, files } = e.target;
-    // setSiswa((prev) => {
-    //   return { ...prev, [name]: files[0] };
-    // });
   };
   const siswaHandleChange = (e) => {
     const { name, value } = e.target;
@@ -300,15 +294,15 @@ const Pendaftar = (props) => {
                             className="form-control form-input"
                             required
                           >
-                             <option value="">--Pilih Jenis Kelamin--</option>
-                            <option value="L">Laki Laki</option>
-                            <option value="P">Perempuan</option>
+                            <option value="">--Pilih Jenis Kelamin--</option>
+                            <option value="L" key={"L"}>Laki Laki</option>
+                            <option value="P" key={"P"}>Perempuan</option>
                           </Form.Select>
                         </div>
                         <div className="form-group m-2">
                           <label htmlFor="agama">Agama</label>
-                          <Form.Select
-                            onChange={(e) =>siswaHandleChange(e)}
+                          <Form.Select aria-label="agama"
+                            onChange={(e) => siswaHandleChange(e)}
                             value={valSiswa.agama}
                             name="agama"
                             id="agama"
@@ -318,7 +312,7 @@ const Pendaftar = (props) => {
                             <option value="">--Pilih Agama--</option>
                             {agama &&
                               agama.map((result) => {
-                                return <option value={result}>{result}</option>;
+                                return <option value={result} key={result}>{result}</option>;
                               })}
                           </Form.Select>
                         </div>
@@ -515,7 +509,7 @@ const Pendaftar = (props) => {
                           })[0];
                           if (typeof valor !== "undefined") {
                             return (
-                              <Accordion.Item eventKey={index}>
+                              <Accordion.Item eventKey={index} key={index}>
                                 <Accordion.Header>{result}</Accordion.Header>
                                 <Accordion.Body>
                                   <div className="container">
@@ -711,7 +705,7 @@ const Pendaftar = (props) => {
                             );
                           } else {
                             return (
-                              <Accordion.Item eventKey={index}>
+                              <Accordion.Item eventKey={index} key={index}>
                                 <Accordion.Header>{result}</Accordion.Header>
                                 <Accordion.Body>
                                   <div className="container">

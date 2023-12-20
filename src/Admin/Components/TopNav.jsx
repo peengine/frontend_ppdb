@@ -35,10 +35,7 @@ const TopNav = (props) => {
       <Navbar expand="lg" sticky='top'>
         <Container>
           <Navbar.Brand href="/dashboard">
-            {/* Logo And Brand here */}
-            <Link to='/dashboard' className=' text-white text-decoration-none'>
-                <h4> <span className="badge bg-white text-primary p-2">PPDB</span><b> {props.dataSekolah.nama_sekolah}</b></h4>
-            </Link>
+                <h4 className="text-white"> <span className="badge bg-white text-primary p-2">PPDB</span><b> {props.dataSekolah.nama_sekolah}</b></h4>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>
           <Navbar.Collapse id="basic-navbar-nav">

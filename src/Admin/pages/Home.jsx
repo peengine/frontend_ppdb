@@ -8,14 +8,12 @@ import { formatRupiah } from '../../Helpers/ValHelpers';
 
 const Home = (props) => {
     const token = localStorage.getItem('token');
-    const gelombang = props.dataGelombang != null ? props.dataGelombang : {};
     const navigate = useNavigate();
     useEffect(()=>{
         if(!token){
             navigate('/signin')
         }
     },[props]);
-
 
   return (
     <>
@@ -59,9 +57,9 @@ const Home = (props) => {
                                     </thead>
                                     <tbody>
                                         {
-                                            gelombang.data && gelombang.data.map((result)=>{
+                                            props.dataSekolah.all_gelombang && props.dataSekolah.all_gelombang.map((result)=>{
                                                 return(
-                                                    <tr>
+                                                    <tr key={result.id}>
                                                         <td>{result.nama_gelombang}</td>
                                                         <td>{result.tgl_dibuka_gelombang}</td>
                                                         <td>{result.tgl_ditutup_gelombang}</td>
