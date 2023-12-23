@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container, Navbar,Nav,NavDropdown, Tabs, Tab } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Container, Navbar,Nav,NavDropdown } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { FaUserCircle } from "react-icons/fa";
 import axios from 'axios';
 import Swal from 'sweetalert2';

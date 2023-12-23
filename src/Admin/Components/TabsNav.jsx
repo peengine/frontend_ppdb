@@ -13,7 +13,7 @@ import { useState } from 'react';
 const TabsNav = (props) => {
   const token = localStorage.getItem('token');
   const tabs = localStorage.getItem('tabs');
-  const navigate = useNavigate()
+  const navigate = useNavigate() 
   const gelombang = props.dataSekolah.gelombang
   const[ts,setTs] = useState("")
   
@@ -41,7 +41,7 @@ useEffect(()=>{
 if(gelombang != null){
   return (
     <>
-          <Tabs defaultActiveKey={tabs} activeKey={tabs} onSelect={(key) => TabSelectHandler(key)} transition={true} id="noanim-tab-example" className='bg-primary' >
+          <Tabs defaultActiveKey={ts} activeKey={tabs} onSelect={(key) => TabSelectHandler(key)} transition={true} id="noanim-tab-example" className='bg-primary' >
             <Tab eventKey="home" title={( <small><AiFillDashboard/> Dashboard </small> )}>
               <br />
               <Home dataSekolah={props.dataSekolah} dataPendaftar={props.dataPendaftar}/>

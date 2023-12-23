@@ -1,10 +1,9 @@
-
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
-import { FaCashRegister } from "react-icons/fa";
+import { FaAddressCard, FaCashRegister, FaPrint } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { formatRupiah, formatTanggal, getStatus } from "../../Helpers/ValHelpers";
@@ -23,6 +22,7 @@ const Pembayaran = (props) => {
   const[via,setVia] = useState("")
   const[pBukti,setBukti] = useState("-")
   const[ket,setKet] = useState("")
+
   const navigate = useNavigate()
   
   
@@ -83,12 +83,17 @@ const Pembayaran = (props) => {
       }
     })
   }
+
+  const handlePrint = async (e) =>{
+    //print pdf
+  }
+
   if(pembayaran.length > 0){
     return(
       <>
       <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12" key={"card-1"}>
             <div className="card card-primary shadow m-3">
               <div className="card-body">
                 <h5 className="card-title">
@@ -134,6 +139,37 @@ const Pembayaran = (props) => {
               </div>
             </div>
           </div>
+          {/* <div className="col-md-12" key={"card-2"}>
+            <div className="card card-primary shadow m-3">
+              <div className="card-body">
+                <h5 className="card-title">
+                  <FaAddressCard/> Kartu Pendaftaran
+                </h5>
+                <small>
+                  Cetak Kartu Pendaftaran disini !
+                </small>
+                <hr />
+                <div className="table-responsive">
+                  <Table striped bordered hover className="text-center">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Act</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr key={'act1'}>
+                        <td>1</td>
+                        <td>Kartu Pendaftaran Siswa</td>
+                        <td> <button className="btn btn-primary" onClick={(e) => handlePrint(e)}> <FaPrint/> Cetak</button> </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </div>
+              </div>
+            </div>
+          </div> */}
         </div>
       </div>
       </>

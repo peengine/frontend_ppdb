@@ -4,6 +4,7 @@ import Profiles from '../Admin/Layouts/Profiles'
 import Register from '../Auth/Register'
 import Signin from '../Auth/Signin'
 import Blank from '../Constants/Blank'
+import NotFound from '../Constants/NotFound'
 import Home from '../Front/Home'
 
 const WebRoutes = () => {
@@ -20,6 +21,7 @@ const WebRoutes = () => {
           <Route path='/profile' element={<Profiles/>} >
               <Route index element={<Blank/>}></Route>
           </Route>
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </Router>
     </>
