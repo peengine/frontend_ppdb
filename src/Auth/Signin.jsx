@@ -44,6 +44,7 @@ const Signin = () => {
           }
         }).then((response) => {
           localStorage.setItem('token',response.data.access_token);
+          localStorage.setItem('tabs',"home");
           navigate('/')
         }).catch((error) => {
           setValidation(error.response.data);

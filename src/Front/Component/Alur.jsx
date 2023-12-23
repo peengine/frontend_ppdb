@@ -17,7 +17,7 @@ const Alur = (props) => {
                               {
                                 alur && alur.map((result) =>{
                                   return(
-                                    <li> <p>{result.ket}</p></li>      
+                                    <li key={result.id}> <p>{result.ket}</p></li>      
                                   );
                                 })
                               }

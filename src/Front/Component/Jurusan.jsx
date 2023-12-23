@@ -22,7 +22,7 @@ const Jurusan = (props) => {
                 {
                     jurusan && jurusan.map((result)=>{
                         return(
-                            <div className="col-md-4 mt-3">
+                            <div className="col-md-4 mt-3" key={result.id}>
                                 <div className="card shadow">
                                     <div className="card-body p-4 text-center">
                                             <img src={URLS+result.foto_kompetensi} width={100} height={100} className='img img-circle my-2'/>

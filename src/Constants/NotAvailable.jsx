@@ -3,7 +3,7 @@ import vectors from './img/8257.png'
 const NotAvailable = () => {
   return (
     <>
-    {/* <div className="bg-light">
+    <div className="bg-light">
       <div className="container">
         <div className="d-flex align-items-center" style={{height:'100vh'}}>
           <div style={{width:'100%'}}>
@@ -17,8 +17,7 @@ const NotAvailable = () => {
           </div>
         </div>
       </div>
-    </div>
-       */}
+    </div>   
     </>
   )
 }

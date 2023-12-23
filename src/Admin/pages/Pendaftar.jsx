@@ -123,7 +123,9 @@ const Pendaftar = (props) => {
           if(response.status === 200){
             if(typeof response.data != 'undefined'){
               if(response.data.message){
-                Swal.fire(response.data.message, '', 'success')
+                Swal.fire(response.data.message, '', 'success').then((result)=>{
+                  window.location.reload()
+                })
               }
               if(response.data.error){
                 Swal.fire(response.data.error, '', 'danger')

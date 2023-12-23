@@ -25,9 +25,16 @@ const Home = (props) => {
                             <h5 className="card-title"> <GoAlertFill/> Pengumuman</h5>
                             <small className='card-subtitle'>Semua Pengumuman Akan Muncul disini !</small>
                             <hr />
-                            <div className="alert alert-danger">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            </div>
+                            {
+                                props.dataPendaftar.pengumuman && props.dataPendaftar.pengumuman.map((response)=>{
+                                    return(
+                                        <div className={"alert alert-"+response.type_pengumuman} key={response.id}>
+                                        <p>{response.isi_pengumuman}</p>
+                                    </div>
+                                    )
+                                })
+                            }
+                            
                         </div>
                     </div>
                 </div>

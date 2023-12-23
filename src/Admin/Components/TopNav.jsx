@@ -22,6 +22,7 @@ const TopNav = (props) => {
           axios.defaults.headers.common['Authorization'] = 'Bearer '+token
           await axios.post(BASE_URL+'auth/logout').then((response)=>{
             localStorage.removeItem('token')
+            localStorage.removeItem('tabs')
             navigate('/signin')
           }).catch((error) => {
             console.log(error)

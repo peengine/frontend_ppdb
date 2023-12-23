@@ -11,6 +11,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
 import NotAvailable from '../Constants/NotAvailable'
+import Blank from '../Constants/Blank'
 const Home = () => {
 
   const[serverActive,setServerActive] = useState(false);
@@ -66,7 +67,7 @@ if(serverActive){
 }else{
   return (
     <>
-    <NotAvailable/>
+    <Blank/>
     </>
   )
 }

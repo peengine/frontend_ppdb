@@ -62,7 +62,9 @@ const BerkasPendaftar = (props) => {
               axios.defaults.headers.common['Authorization'] = 'Bearer '+token
               await axios.post(BASE_URL+'auth/pendaftar/set',fd).then((response)=>{
                 if(response.data.message){
-                  Swal.fire(response.data.message, '', 'success')
+                  Swal.fire(response.data.message, '', 'success').then((result)=>{
+                    window.location.reload();
+                  })
                 }
                 if(response.data.error){
                   Swal.fire(response.data.error, '', 'danger')

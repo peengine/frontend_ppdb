@@ -27,9 +27,9 @@ const Navbars = (props) => {
         <Container>
           <Navbar.Brand href="#home">
             {/* Logo And Brand here */}
-            <LinkScroll to='home' smooth={true} duration={500}>
+            {/* <LinkScroll to='home' smooth={true} duration={500}> */}
                 <h4> <span className="badge bg-primary p-2">PPDB</span><b> {props.sekolahName}</b></h4>
-            </LinkScroll>
+            {/* </LinkScroll> */}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

@@ -66,8 +66,9 @@ const Pembayaran = (props) => {
           if(response.status === 200){
             if(typeof response.data != 'undefined'){
               if(response.data.message){
-                Swal.fire(response.data.message, '', 'success')
-                window.location.reload()
+                Swal.fire(response.data.message, '', 'success').then((result)=>{
+                  window.location.reload();
+                })
               }
               if(response.data.error){
                 Swal.fire(response.data.error, '', 'danger')
@@ -100,18 +101,21 @@ const Pembayaran = (props) => {
                 <div className="table-responsive">
                   <Table striped bordered hover className="text-center" >
                     <thead>
-                      <th>No</th>
-                      <th>Methode</th>
-                      <th>Tanggal</th>
-                      <th>Kode</th>
-                      <th>Type</th>
-                      <th>Nominal</th>
-                      <th>Status</th>
+                      <tr>
+                        <th>No</th>
+                        <th>Methode</th>
+                        <th>Tanggal</th>
+                        <th>Kode</th>
+                        <th>Type</th>
+                        <th>Nominal</th>
+                        <th>Status</th>
+                      </tr>
+                      
                     </thead>
                     <tbody>
                       {pembayaran && pembayaran.map((result,index)=>{
                         return (
-                          <tr>
+                          <tr key={index + 1}>
                             <td>{index + 1}</td>
                             <td>{result.via_pembayaran}</td>
                             <td>{formatTanggal(result.created_at)}</td>
