@@ -1,4 +1,5 @@
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
+import KartuPendaftaran from '../Admin/Components/templates/KartuPendaftaran'
 import Dashboard from '../Admin/Layouts/Dashboard'
 import Profiles from '../Admin/Layouts/Profiles'
 import Register from '../Auth/Register'

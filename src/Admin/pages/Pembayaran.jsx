@@ -1,3 +1,4 @@
+import { BlobProvider } from "@react-pdf/renderer";
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
@@ -8,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { formatRupiah, formatTanggal, getStatus } from "../../Helpers/ValHelpers";
 import vectors from "../Components/Images/2.png";
+import KartuPendaftaran from "../Components/templates/KartuPendaftaran";
 
 const Pembayaran = (props) => {
   const token = localStorage.getItem('token');
@@ -84,9 +86,6 @@ const Pembayaran = (props) => {
     })
   }
 
-  const handlePrint = async (e) =>{
-    //print pdf
-  }
 
   if(pembayaran.length > 0){
     return(
@@ -139,7 +138,7 @@ const Pembayaran = (props) => {
               </div>
             </div>
           </div>
-          {/* <div className="col-md-12" key={"card-2"}>
+          <div className="col-md-12" key={"card-2"}>
             <div className="card card-primary shadow m-3">
               <div className="card-body">
                 <h5 className="card-title">
@@ -162,14 +161,18 @@ const Pembayaran = (props) => {
                       <tr key={'act1'}>
                         <td>1</td>
                         <td>Kartu Pendaftaran Siswa</td>
-                        <td> <button className="btn btn-primary" onClick={(e) => handlePrint(e)}> <FaPrint/> Cetak</button> </td>
+                        <td><BlobProvider document={<KartuPendaftaran dataProps={props} />}>
+                            {({blob,url})=>(
+                              <a href={url} target={"_blank"} className="btn btn-primary"><FaPrint/> Cetak</a>
+                            )}
+                          </BlobProvider></td>
                       </tr>
                     </tbody>
                   </Table>
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
       </>
