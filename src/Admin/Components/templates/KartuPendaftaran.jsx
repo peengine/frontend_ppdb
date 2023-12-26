@@ -6,8 +6,6 @@ import {
   Text,
   View,
   StyleSheet,
-  Canvas,
-  Font,
   Svg,
   Line,
   Image,
@@ -15,7 +13,6 @@ import {
 import vectors from "../Images/2.png";
 import { useState } from "react";
 import { formatTanggal } from "../../../Helpers/ValHelpers";
-import { useEffect } from "react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
@@ -109,11 +106,9 @@ const styles = StyleSheet.create({
 });
 
 const KartuPendaftaran = (props) => {
-    const URLS = process.env.REACT_APP_BASE_URL;
     const dataPendaftar = props.dataProps.dataPendaftar;
     const dataProps = props.dataProps;
     const dataSekolah = dataProps.dataSekolah;
-    const pPp = dataPendaftar.pendaftar != null && dataPendaftar.pendaftar.foto != "-" ? URLS + dataPendaftar.pendaftar.foto: vectors;
     const[img,setImg] = useState(vectors)
   return (
     <Document>

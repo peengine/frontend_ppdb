@@ -141,6 +141,9 @@ const Pendaftar = (props) => {
     })
 
   };
+  const inputNumOnly = (event) =>{
+    return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))
+  }
 
   return (
     <>
@@ -198,8 +201,10 @@ const Pendaftar = (props) => {
                         <div className="form-group m-2">
                           <label htmlFor="nisn">NISN</label>
                           <input
-                            type="text"
+                            type="number"
                             onChange={(e) =>siswaHandleChange(e)}
+                            onKeyPress={(e)=>inputNumOnly(e)}
+                            pattern="[0-9]"
                             defaultValue={valSiswa.nisn}
                             name="nisn"
                             id="nisn"
@@ -211,8 +216,10 @@ const Pendaftar = (props) => {
                         <div className="form-group m-2">
                           <label htmlFor="nik">NIK</label>
                           <input
-                            type="text"
+                            type="number"
                             onChange={(e) =>siswaHandleChange(e)}
+                            onKeyPress={(e)=>inputNumOnly(e)}
+                            pattern="[0-9]"
                             defaultValue={valSiswa.nik}
                             name="nik"
                             id="nik"
@@ -224,8 +231,10 @@ const Pendaftar = (props) => {
                         <div className="form-group m-2">
                           <label htmlFor="kip">KIP</label>
                           <input
-                            type="text"
+                            type="number"
                             onChange={(e) =>siswaHandleChange(e)}
+                            onKeyPress={(e)=>inputNumOnly(e)}
+                            pattern="[0-9]"
                             name="kip"
                             defaultValue={valSiswa.kip ? valSiswa.kip : '-'}
                             id="kip"
