@@ -4,7 +4,7 @@ import { GoAlertFill } from "react-icons/go";
 import { FaCalendarCheck } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { formatRupiah } from '../../Helpers/ValHelpers';
+import { formatRupiah, formatTanggal } from '../../Helpers/ValHelpers';
 
 const Home = (props) => {
     const token = localStorage.getItem('token');
@@ -29,12 +29,17 @@ const Home = (props) => {
                                 props.dataPendaftar.pengumuman && props.dataPendaftar.pengumuman.map((response)=>{
                                     return(
                                         <div className={"alert alert-"+response.type_pengumuman} key={response.id}>
-                                        <p>{response.isi_pengumuman}</p>
-                                    </div>
+                                            <GoAlertFill/> {response.type_pengumuman}<br />
+                                             <small>{formatTanggal(response.created_at)}</small>
+                                             <br />
+                                             <hr />
+                                            <p>{response.isi_pengumuman}</p>
+                                            
+                                           
+                                        </div>
                                     )
                                 })
                             }
-                            
                         </div>
                     </div>
                 </div>

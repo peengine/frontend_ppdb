@@ -155,7 +155,7 @@ const BerkasPendaftar = (props) => {
                                                 <div  key={result.id}>
                                                     <div className="form-group">
                                                         <label htmlFor={"berkas_type_"+result.id}>{result.nama_berkas}</label>
-                                                        <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input' />
+                                                        <input type="file" onChange={(e) => berkasHandleChange(e)} accept='application/pdf,application/doc,application/docx' name={"berkas_type_"+result.id} id={"berkas_type_"+result.id} className='form-control form-input border-danger' />
                                                     </div>
                                                 </div>
                                             );    
