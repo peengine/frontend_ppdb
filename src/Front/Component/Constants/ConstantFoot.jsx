@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import foot_bg from './Images/footer.png'
+import foot_bg from '../Images/footer.png'
 import { Link as LinkScroll } from 'react-scroll';
-import { Nav } from 'react-bootstrap'
-const Footer = (props) => {
+import { Nav} from 'react-bootstrap'
+const ConstantFoot = (props) => {
+
   const date = new Date();
   const token = localStorage.getItem('token');
 
@@ -71,4 +72,4 @@ const Footer = (props) => {
   )
 }
 
-export default Footer
+export default ConstantFoot

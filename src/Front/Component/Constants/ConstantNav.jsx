@@ -3,18 +3,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { Link as LinkScroll } from 'react-scroll';
 
-const Navbars = (props) => {
+const ConstantNav = (props) => {
   const token = localStorage.getItem('token');
   const[bgnav,setBgnav] = useState("bg-white");
-
- 
-
   const setBackgroundNav = () =>{
     let winheight = window.scrollY;
     winheight > 100 ? setBgnav("bg-white shadow") : setBgnav("bg-white");
-    console.log(bgnav)
   }
   useEffect(()=>{
     window.addEventListener("scroll",setBackgroundNav)
@@ -27,7 +22,7 @@ const Navbars = (props) => {
     <>
       <Navbar expand="lg" sticky='top' className={`${bgnav}`}>
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             {/* Logo And Brand here */}
             {/* <LinkScroll to='home' smooth={true} duration={500}> */}
                 <h4> <span className="badge bg-primary p-2">PPDB</span><b> {props.sekolahName}</b></h4>
@@ -36,21 +31,16 @@ const Navbars = (props) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <LinkScroll to='home' smooth={true} duration={500}>
-                <Nav.Link href="/#home" >
+             
+                <Nav.Link href="/" >
                   Home
                 </Nav.Link>
-              </LinkScroll>
-              <LinkScroll to='alur' smooth={true} duration={500}>
-                <Nav.Link href="#alur" >
+                <Nav.Link href="/" >
                   Alur
                   </Nav.Link>
-              </LinkScroll>
-              <LinkScroll to='biaya_dan_jadwal' smooth={true} duration={500}>
-                <Nav.Link href="#biaya_dan_jadwal" >
+                <Nav.Link href="/" >
                   Jadwal & Biaya
                   </Nav.Link>
-              </LinkScroll>
               {
                 props.customMenu && props.customMenu.map((result)=>{
                   return (
@@ -84,4 +74,4 @@ const Navbars = (props) => {
   )
 }
 
-export default Navbars
+export default ConstantNav

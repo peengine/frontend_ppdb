@@ -5,7 +5,6 @@ const Hero = (props) => {
   return (
     <>
         <section id='home'>
-            
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
@@ -16,7 +15,7 @@ const Hero = (props) => {
                             <Link to={'/dashboard'} type='button' className='btn btn-primary shadow'>Daftar Sekarang</Link>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6">  
                         <div className="image">
                             <img src='assets/hero-img.svg' className='home-img'></img>
                         </div>

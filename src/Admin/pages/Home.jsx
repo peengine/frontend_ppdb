@@ -34,8 +34,6 @@ const Home = (props) => {
                                              <br />
                                              <hr />
                                             <p>{response.isi_pengumuman}</p>
-                                            
-                                           
                                         </div>
                                     )
                                 })

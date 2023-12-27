@@ -10,14 +10,14 @@ import Footer from "./Component/Footer"
 import { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
-import NotAvailable from '../Constants/NotAvailable'
 import Blank from '../Constants/Blank'
+import { useLocation } from 'react-router-dom'
 const Home = () => {
 
   const[serverActive,setServerActive] = useState(false);
   const[jurusan,setJurusan] = useState({});
   const[sekolah,setSekolah] = useState({})
-  
+  const[menus,setMenus] = useState([]);
   const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   
   useEffect(()=>{
@@ -26,6 +26,12 @@ const Home = () => {
 
   const fetch = async (e) => {
     try{
+      await axios.get(BASE_URL+'menus').then((response) => {
+        setMenus(response.data.data.menus)
+      }).catch((err) =>{
+        setServerActive(false);
+        console.log('Error :'+err)
+      })
       await axios.get(BASE_URL+'sekolah').then((response) => {
         setSekolah(response.data.data);
         setServerActive(true);
@@ -51,7 +57,7 @@ if(serverActive){
   return (
     <>
     <div className='backgrounds-bodys' style={{backgroundImage:`url(${bg})`,backgroundSize:'100% cover',backgroundRepeat:'no-repeat'}}>
-      <Navbars sekolahName={sekolah.nama_sekolah} />
+      <Navbars sekolahName={sekolah.nama_sekolah} customMenu={menus} />
         <Hero sekolahName={sekolah.nama_sekolah} tahunAjaran={sekolah.tahun_ajaran.tahun_ajaran} />
         <WhyUs why_us={sekolah.why_us} />
         <Jurusan jurusan={jurusan}/>
