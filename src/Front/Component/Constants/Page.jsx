@@ -7,7 +7,7 @@ import Blank from '../../../Constants/Blank';
 import NotFound from '../../../Constants/NotFound';
 import ConstantFoot from './ConstantFoot';
 import ConstantNav from './ConstantNav';
-const Page = (props) => {
+const Page = () => {
     const URLS = process.env.REACT_APP_BASE_URL
     const[serverActive,setServerActive] = useState(false);
     const[pages,setPages] = useState(null);

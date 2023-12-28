@@ -18,6 +18,7 @@ const Home = () => {
   const[jurusan,setJurusan] = useState({});
   const[sekolah,setSekolah] = useState({})
   const[menus,setMenus] = useState([]);
+  const[posts,setPosts] = useState([])
   const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL
   
   useEffect(()=>{
@@ -28,6 +29,12 @@ const Home = () => {
     try{
       await axios.get(BASE_URL+'menus').then((response) => {
         setMenus(response.data.data.menus)
+      }).catch((err) =>{
+        setServerActive(false);
+        console.log('Error :'+err)
+      })
+      await axios.get(BASE_URL+'posts').then((response) => {
+        setPosts(response.data.data.posts);
       }).catch((err) =>{
         setServerActive(false);
         console.log('Error :'+err)
@@ -58,7 +65,7 @@ if(serverActive){
     <>
     <div className='backgrounds-bodys' style={{backgroundImage:`url(${bg})`,backgroundSize:'100% cover',backgroundRepeat:'no-repeat'}}>
       <Navbars sekolahName={sekolah.nama_sekolah} customMenu={menus} />
-        <Hero sekolahName={sekolah.nama_sekolah} tahunAjaran={sekolah.tahun_ajaran.tahun_ajaran} />
+        <Hero sekolahName={sekolah.nama_sekolah} tahunAjaran={sekolah.tahun_ajaran.tahun_ajaran} posts={posts} />
         <WhyUs why_us={sekolah.why_us} />
         <Jurusan jurusan={jurusan}/>
         <Alur alur={sekolah.alur}/>

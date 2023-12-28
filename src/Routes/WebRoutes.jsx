@@ -6,6 +6,7 @@ import Signin from '../Auth/Signin'
 import Blank from '../Constants/Blank'
 import NotFound from '../Constants/NotFound'
 import Page from '../Front/Component/Constants/Page'
+import PostView from '../Front/Component/Constants/PostView'
 import Home from '../Front/Home'
 
 const WebRoutes = () => {
@@ -26,6 +27,10 @@ const WebRoutes = () => {
           <Route
             path="/pages/:slugPages"
             element={<Page />}
+          />
+          <Route
+            path="/post/:slugPost"
+            element={<PostView />}
           />
 
           <Route path="*" element={<NotFound/>} />
