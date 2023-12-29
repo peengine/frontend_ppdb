@@ -64,7 +64,7 @@ if(serverActive){
   return (
     <>
     <div className='backgrounds-bodys' style={{backgroundImage:`url(${bg})`,backgroundSize:'100% cover',backgroundRepeat:'no-repeat'}}>
-      <Navbars sekolahName={sekolah.nama_sekolah} customMenu={menus} />
+      <Navbars sekolahName={sekolah.nama_sekolah} customMenu={menus} dataSekolah={sekolah} />
         <Hero sekolahName={sekolah.nama_sekolah} tahunAjaran={sekolah.tahun_ajaran.tahun_ajaran} posts={posts} />
         <WhyUs why_us={sekolah.why_us} />
         <Jurusan jurusan={jurusan}/>

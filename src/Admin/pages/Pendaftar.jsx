@@ -72,42 +72,60 @@ const Pendaftar = (props) => {
       return { ...prev, [name]: value };
     });
   };
+  const dataAyahHandleChange = (e) =>{
+    const { name, value } = e.target
+      
+      setAyah((prev) => {
+        return { ...prev, [name]: value };
+      });
+      // setOrtu([Ayah])
+      
+      // setAyah((prev) => {
+      //   return { ...prev, ['type_ortu']: 'ayah' };
+      // });
+  }
   const dataOrangtuaHandleChange = (e) => {
     const { name, value } = e.target;
     if (name.endsWith("ayah")) {
-      setAyah((prev) => {
-        return { ...prev, [name.replace("_ayah", "")]: value };
-      });
+      const { name, value } = e.target;
+      const nyname = name.replace("_ayah","")
       setAyah((prev) => {
         return { ...prev, ['type_ortu']: 'ayah' };
       });
+      setAyah((prev) => {
+        return { ...prev, [nyname]: value };
+      });
+    
     }
     if (name.endsWith("ibu")) {
-      setIbu((prev) => {
-        return { ...prev, [name.replace("_ibu", "")]: value };
-      });
+      const { name, value } = e.target;
+      const nyname = name.replace("_ibu","")
       setIbu((prev) => {
         return { ...prev, ['type_ortu']: 'ibu' };
       });
+      setIbu((prev) => {
+        return { ...prev, [nyname]: value };
+      });
+     
     }
     if (name.endsWith("wali")) {
-      setWali((prev) => {
-        return { ...prev, [name.replace("_wali", "")]: value };
-      });
+      const { name, value } = e.target;
+      const nyname = name.replace("_wali","")
       setWali((prev) => {
         return { ...prev, ['type_ortu']: 'wali' };
       });
+      setWali((prev) => {
+        return { ...prev, [nyname]: value };
+      });
+     
     }
-    setOrtu([Ayah, Ibu, Wali]);
-    console.log(valOrtu)
   };
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    
     const fd = new FormData();
     fd.append("foto_pendaftar",foto_profile)
     fd.append("pendaftar", JSON.stringify(valSiswa))
-    fd.append("data_orangtua", JSON.stringify(valOrtu) )
+    fd.append("data_orangtua", JSON.stringify([Ayah,Ibu,Wali]) )
     fd.append("data_lain", JSON.stringify(dataLainSiswa))
     Swal.fire({
       title: 'Are You sure want to save ?',
@@ -124,7 +142,7 @@ const Pendaftar = (props) => {
             if(typeof response.data != 'undefined'){
               if(response.data.message){
                 Swal.fire(response.data.message, '', 'success').then((result)=>{
-                  window.location.reload()
+                 window.location.reload()
                 })
               }
               if(response.data.error){
@@ -513,15 +531,8 @@ const Pendaftar = (props) => {
                     </small>
                     <hr />
                     <Accordion defaultActiveKey={0}>
-                      {ortu &&
-                        ortu.map((result, index) => {
-                          let valor = valOrtu.filter((response) => {
-                            return response.type_ortu === result.toLowerCase();
-                          })[0];
-                          if (typeof valor !== "undefined") {
-                            return (
-                              <Accordion.Item eventKey={index} key={index}>
-                                <Accordion.Header>{result}</Accordion.Header>
+                              <Accordion.Item eventKey={0} key={0}>
+                                <Accordion.Header>Ayah</Accordion.Header>
                                 <Accordion.Body>
                                   <div className="container">
                                     <div className="row">
@@ -530,24 +541,26 @@ const Pendaftar = (props) => {
                                           <label htmlFor="nama">Nama</label>
                                           <input
                                             type="text"
-                                            defaultValue={valor.nama}
+                                            onChange={(e) => dataAyahHandleChange(e)}
+                                            defaultValue={Ayah.nama}
                                             placeholder="Nama"
                                             className="form-input form-control"
                                             name={
-                                              "nama_" + result.toLowerCase()
+                                              "nama"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            
                                           />
                                         </div>
                                         <div className="form-group">
                                           <label htmlFor="nik">NIK</label>
                                           <input
                                             type="number"
-                                            defaultValue={valor.nik}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.nik}
                                             placeholder="NIK"
                                             className="form-input form-control"
-                                            name={"nik_" + result.toLowerCase()}
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            name={"nik_ayah"}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -556,14 +569,14 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
-                                            defaultValue={valor.tempat_lahir}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.tempat_lahir}
                                             placeholder="Tempat Lahir"
                                             className="form-input form-control"
                                             name={
-                                              "tempat_lahir_" +
-                                              result.toLowerCase()
+                                              "tempat_lahir_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            
                                           />
                                         </div>
                                         <div className="form-group">
@@ -572,28 +585,29 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="date"
-                                            defaultValue={valor.tanggal_lahir}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.tanggal_lahir}
                                             placeholder="Tanggal Lahir"
                                             className="form-input form-control"
                                             name={
-                                              "tanggal_lahir_" +
-                                              result.toLowerCase()
+                                              "tanggal_lahir_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                         <div className="form-group">
                                           <label htmlFor="alamat">Alamat</label>
                                           <textarea
-                                            defaultValue={valor.alamat}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.alamat}
                                             name={
-                                              "alamat_" + result.toLowerCase()
+                                              "alamat_ayah"
                                             }
                                             className="form-control"
                                             placeholder="Alamat"
                                             cols="30"
                                             rows="6"
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           ></textarea>
                                         </div>
                                       </div>
@@ -602,26 +616,28 @@ const Pendaftar = (props) => {
                                           <label htmlFor="no_hp">No Hp</label>
                                           <input
                                             type="text"
-                                            defaultValue={valor.no_hp}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.no_hp}
                                             placeholder="No Hp"
                                             className="form-input form-control"
                                             name={
-                                              "no_hp_" + result.toLowerCase()
+                                              "no_hp_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                         <div className="form-group">
                                           <label htmlFor="status">Status</label>
                                           <input
                                             type="text"
-                                            defaultValue={valor.status}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.status}
                                             placeholder="Status"
                                             className="form-input form-control"
                                             name={
-                                              "status_" + result.toLowerCase()
+                                              "status_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                         <div className="form-group">
@@ -630,14 +646,13 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
-                                            defaultValue={valor.pekerjaan_utama}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.pekerjaan_utama}
                                             placeholder="Pekerjaan Utama"
                                             className="form-input form-control"
                                             name={
-                                              "pekerjaan_utama_" +
-                                              result.toLowerCase()
+                                              "pekerjaan_utama_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
                                           />
                                         </div>
                                         <div className="form-group">
@@ -646,16 +661,16 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
                                             defaultValue={
-                                              valor.pendidikan_terakhir
+                                              Ayah.pendidikan_terakhir
                                             }
                                             placeholder="Pendidikan Terakhir"
                                             className="form-input form-control"
                                             name={
-                                              "pendidikan_terakhir_" +
-                                              result.toLowerCase()
+                                              "pendidikan_terakhir_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -664,13 +679,14 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
-                                            defaultValue={valor.domisili}
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ayah.domisili}
                                             placeholder="Domisili"
                                             className="form-input form-control"
                                             name={
-                                              "domisili_" + result.toLowerCase()
+                                              "domisili_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -679,16 +695,16 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="number"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
                                             defaultValue={
-                                              valor.penghasilan_rata_rata
+                                              Ayah.penghasilan_rata_rata
                                             }
                                             placeholder="Penghasilan Rata Rata"
                                             className="form-input form-control"
                                             name={
-                                              "penghasilan_rata_rata_" +
-                                              result.toLowerCase()
+                                              "penghasilan_rata_rata_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -697,15 +713,16 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
                                             defaultValue={
-                                              valor.status_tempat_tinggal
+                                              Ayah.status_tempat_tinggal
                                             }
                                             placeholder="Status Tempat Tinggal"
                                             className="form-input form-control"
                                             name={
-                                              "status_tempat_tinggal_"+result.toLowerCase()
+                                              "status_tempat_tinggal_ayah"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                       </div>
@@ -713,11 +730,8 @@ const Pendaftar = (props) => {
                                   </div>
                                 </Accordion.Body>
                               </Accordion.Item>
-                            );
-                          } else {
-                            return (
-                              <Accordion.Item eventKey={index} key={index}>
-                                <Accordion.Header>{result}</Accordion.Header>
+                              <Accordion.Item eventKey={1} key={1}>
+                                <Accordion.Header>Ibu</Accordion.Header>
                                 <Accordion.Body>
                                   <div className="container">
                                     <div className="row">
@@ -726,22 +740,26 @@ const Pendaftar = (props) => {
                                           <label htmlFor="nama">Nama</label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.nama}
                                             placeholder="Nama"
                                             className="form-input form-control"
                                             name={
-                                              "nama_" + result.toLowerCase()
+                                              "nama_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
                                           <label htmlFor="nik">NIK</label>
                                           <input
                                             type="number"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.nik}
                                             placeholder="NIK"
                                             className="form-input form-control"
-                                            name={"nik_" + result.toLowerCase()}
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            name={"nik_ibu"}
+                                          
                                           />
                                         </div>
                                         <div className="form-group">
@@ -750,13 +768,14 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.tempat_lahir}
                                             placeholder="Tempat Lahir"
                                             className="form-input form-control"
                                             name={
-                                              "tempat_lahir_" +
-                                              result.toLowerCase()
+                                              "tempat_lahir_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -765,26 +784,29 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="date"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.tanggal_lahir}
                                             placeholder="Tanggal Lahir"
                                             className="form-input form-control"
                                             name={
-                                              "tanggal_lahir_" +
-                                              result.toLowerCase()
+                                              "tanggal_lahir_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                         
                                           />
                                         </div>
                                         <div className="form-group">
                                           <label htmlFor="alamat">Alamat</label>
                                           <textarea
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.alamat}
                                             name={
-                                              "alamat_" + result.toLowerCase()
+                                              "alamat_ibu"
                                             }
                                             className="form-control"
                                             placeholder="Alamat"
                                             cols="30"
                                             rows="6"
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           ></textarea>
                                         </div>
                                       </div>
@@ -793,24 +815,28 @@ const Pendaftar = (props) => {
                                           <label htmlFor="no_hp">No Hp</label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.no_hp}
                                             placeholder="No Hp"
                                             className="form-input form-control"
                                             name={
-                                              "no_hp_" + result.toLowerCase()
+                                              "no_hp_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                         <div className="form-group">
                                           <label htmlFor="status">Status</label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.status}
                                             placeholder="Status"
                                             className="form-input form-control"
                                             name={
-                                              "status_" + result.toLowerCase()
+                                              "status_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -819,13 +845,14 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.pekerjaan_utama}
                                             placeholder="Pekerjaan Utama"
                                             className="form-input form-control"
                                             name={
-                                              "pekerjaan_utama_" +
-                                              result.toLowerCase()
+                                              "pekerjaan_utama_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                         <div className="form-group">
@@ -834,13 +861,16 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={
+                                              Ibu.pendidikan_terakhir
+                                            }
                                             placeholder="Pendidikan Terakhir"
                                             className="form-input form-control"
                                             name={
-                                              "pendidikan_terakhir_" +
-                                              result.toLowerCase()
+                                              "pendidikan_terakhir_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                         <div className="form-group">
@@ -849,12 +879,14 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Ibu.domisili}
                                             placeholder="Domisili"
                                             className="form-input form-control"
                                             name={
-                                              "domisili_" + result.toLowerCase()
+                                              "domisili_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -863,13 +895,16 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="number"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={
+                                              Ibu.penghasilan_rata_rata
+                                            }
                                             placeholder="Penghasilan Rata Rata"
                                             className="form-input form-control"
                                             name={
-                                              "penghasilan_rata_rata_" +
-                                              result.toLowerCase()
+                                              "penghasilan_rata_rata_ibu"
                                             }
-                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                           
                                           />
                                         </div>
                                         <div className="form-group">
@@ -878,13 +913,16 @@ const Pendaftar = (props) => {
                                           </label>
                                           <input
                                             type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={
+                                              Ibu.status_tempat_tinggal
+                                            }
                                             placeholder="Status Tempat Tinggal"
                                             className="form-input form-control"
                                             name={
-                                              "status_tempat_tinggal_" +
-                                              result.toLowerCase()
+                                              "status_tempat_tinggal_ibu"
                                             }
-                                            onChange={(e) => dataOrangtuaHandleChange(e)}
+                                          
                                           />
                                         </div>
                                       </div>
@@ -892,9 +930,206 @@ const Pendaftar = (props) => {
                                   </div>
                                 </Accordion.Body>
                               </Accordion.Item>
-                            );
-                          }
-                        })}
+                              <Accordion.Item eventKey={2} key={2}>
+                                <Accordion.Header>Wali</Accordion.Header>
+                                <Accordion.Body>
+                                  <div className="container">
+                                    <div className="row">
+                                      <div className="col-md-6">
+                                        <div className="form-group">
+                                          <label htmlFor="nama">Nama</label>
+                                          <input
+                                            type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.nama}
+                                            placeholder="Nama"
+                                            className="form-input form-control"
+                                            name={
+                                              "nama_wali"
+                                            }
+                                           
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="nik">NIK</label>
+                                          <input
+                                            type="number"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.nik}
+                                            placeholder="NIK"
+                                            className="form-input form-control"
+                                            name={"nik_wali"}
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="tempat_lahir">
+                                            Tempat Lahir
+                                          </label>
+                                          <input
+                                            type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.tempat_lahir}
+                                            placeholder="Tempat Lahir"
+                                            className="form-input form-control"
+                                            name={
+                                              "tempat_lahir_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="tanggal_lahir">
+                                            Tanggal Lahir
+                                          </label>
+                                          <input
+                                            type="date"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.tanggal_lahir}
+                                            placeholder="Tanggal Lahir"
+                                            className="form-input form-control"
+                                            name={
+                                              "tanggal_lahir_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="alamat">Alamat</label>
+                                          <textarea
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.alamat}
+                                            name={
+                                              "alamat_wali"
+                                            }
+                                            className="form-control"
+                                            placeholder="Alamat"
+                                            cols="30"
+                                            rows="6"
+                                          
+                                          ></textarea>
+                                        </div>
+                                      </div>
+                                      <div className="col-md-6">
+                                        <div className="form-group">
+                                          <label htmlFor="no_hp">No Hp</label>
+                                          <input
+                                            type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.no_hp}
+                                            placeholder="No Hp"
+                                            className="form-input form-control"
+                                            name={
+                                              "no_hp_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="status">Status</label>
+                                          <input
+                                            type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.status}
+                                            placeholder="Status"
+                                            className="form-input form-control"
+                                            name={
+                                              "status_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="pekerjaan_utama">
+                                            Pekerjaan Utama
+                                          </label>
+                                          <input
+                                            type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.pekerjaan_utama}
+                                            placeholder="Pekerjaan Utama"
+                                            className="form-input form-control"
+                                            name={
+                                              "pekerjaan_utama_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="pendidikan_terakhir">
+                                            Pendidikan Terakhir
+                                          </label>
+                                          <input
+                                            type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={
+                                              Wali.pendidikan_terakhir
+                                            }
+                                            placeholder="Pendidikan Terakhir"
+                                            className="form-input form-control"
+                                            name={
+                                              "pendidikan_terakhir_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="domisili">
+                                            Domisili
+                                          </label>
+                                          <input
+                                            type="text"
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            defaultValue={Wali.domisili}
+                                            placeholder="Domisili"
+                                            className="form-input form-control"
+                                            name={
+                                              "domisili_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="penghasilan_rata_rata">
+                                            Penghasilan Rata Rata
+                                          </label>
+                                          <input
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            type="number"
+                                            defaultValue={
+                                              Wali.penghasilan_rata_rata
+                                            }
+                                            placeholder="Penghasilan Rata Rata"
+                                            className="form-input form-control"
+                                            name={
+                                              "penghasilan_rata_rata_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                        <div className="form-group">
+                                          <label htmlFor="status_tempat_tinggal">
+                                            Status Tempat Tinggal
+                                          </label>
+                                          <input
+                                            onChange={(e) =>dataOrangtuaHandleChange(e)}
+                                            type="text"
+                                            defaultValue={
+                                              Wali.status_tempat_tinggal
+                                            }
+                                            placeholder="Status Tempat Tinggal"
+                                            className="form-input form-control"
+                                            name={
+                                              "status_tempat_tinggal_wali"
+                                            }
+                                          
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Accordion.Body>
+                              </Accordion.Item>
                     </Accordion>
                   </div>
                 </div>

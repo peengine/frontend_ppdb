@@ -8,7 +8,7 @@ import { Link as LinkScroll } from 'react-scroll';
 const Navbars = (props) => {
   const token = localStorage.getItem('token');
   const[bgnav,setBgnav] = useState("bg-white");
-
+  const URLS = process.env.REACT_APP_BASE_URL;
  
 
   const setBackgroundNav = () =>{
@@ -30,7 +30,21 @@ const Navbars = (props) => {
           <Navbar.Brand href="#home">
             {/* Logo And Brand here */}
             {/* <LinkScroll to='home' smooth={true} duration={500}> */}
+            {
+              props.dataSekolah.logo_sekolah != '-' && (
+                <>
+                  <img src={URLS+"public/tenant/upload_file/sekolah/"+props.dataSekolah.logo_sekolah} height={100} />
+                 <h4><b> {props.sekolahName}</b></h4>
+                </>
+                
+              ) 
+            }
+            {
+              props.dataSekolah.logo_sekolah == '-' && (
                 <h4> <span className="badge bg-primary p-2">PPDB</span><b> {props.sekolahName}</b></h4>
+              ) 
+            }
+                
             {/* </LinkScroll> */}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
